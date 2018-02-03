@@ -31,10 +31,15 @@ public class Recursion {
     }
     
     public static void main (String args[]) {
+	/* Factorial Testing
 	System.out.println(fact(1));
 	System.out.println(fact(2));
 	System.out.println(fact(3));
 	System.out.println(fact(4));
+	*/
+	
+	
+	
 	
     }
 
