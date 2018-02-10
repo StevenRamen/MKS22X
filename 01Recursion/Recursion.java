@@ -46,4 +46,19 @@ public class Recursion {
 	return sqrthelp(n, newGuess);
     }
 
+    public boolean isPossibleSum(int n, int target) {
+	if (n < 0) {
+	    throw new IllegalArgumentException("input can't be negative");
+	}
+	return isPossibleSumhelp(n, target, 0);
+    }
+
+    public boolean isPossibleSumhelp(int n, int target, int sum) {
+	if (n == 0) {
+	    return target == sum;
+	}
+	return isPossibleSumhelp(n - 1, target, sum) || isPossibleSumhelp(n - 1, target, sum + n);
+	
+    }
+
 }

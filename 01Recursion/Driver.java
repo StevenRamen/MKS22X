@@ -30,6 +30,25 @@ public class Driver {
 	System.out.println(a.sqrt(4));
 	System.out.println(a.sqrt(5));
 	System.out.println(a.sqrt(9));
+
+	/*
+	// Prime Testing
+	System.out.println("Prime");
+
+	System.out.println(a.isPrime(1));
+	System.out.println(a.isPrime(2));
+	System.out.println(a.isPrime(3));
+	System.out.println(a.isPrime(5));
+	System.out.println(a.isPrime(4));
+	*/
 	
+	// Possible Sum Testing
+	System.out.println("Possible Sum");
+
+	System.out.println(a.isPossibleSum(3, 1));
+	System.out.println(a.isPossibleSum(2, 17));
+	System.out.println(a.isPossibleSum(5, 11));
+	System.out.println(a.isPossibleSum(23 , 5));
+	System.out.println(a.isPossibleSum(4, 0));
     }
 }
