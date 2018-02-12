@@ -7,7 +7,7 @@ public class QueenBoard {
 
     private boolean addQueen(int r, int c) {
 	if (board[r][c] == 0) {
-	    board[r][c] = -1;
+	    board[r][c] --;
 
 	    // upper diag
 	    int j = c + 1;
@@ -34,7 +34,23 @@ public class QueenBoard {
     }
 
     private boolean removeQueen(int r, int c) {
-	return true;
+	if (board[r][c] == -1) {
+	    board[r][c] ++;
+	    
+	    for (int i = 1; c + i < board.length; i++){
+		if (r - i >= 0) {
+		    board[r - i][c + i] --;
+		}
+		if (r + i < board.length){
+		    board[r + i][c + i] --;
+		}
+		
+		board[r][c + i] --;
+	    }
+	    
+	    return true;
+	}
+	return false;
     }
 
     /**
@@ -93,7 +109,12 @@ public class QueenBoard {
     public static void main(String []args) {
 	QueenBoard a = new QueenBoard(5);
 
-	System.out.println(a.addQueen(0, 0));
+	System.out.println(a.addQueen(2, 0));
+	System.out.println(a.toString());
+	System.out.println("----------------");
+	//System.out.println(a.removeQueen(1,0));
+	//System.out.println(a.toString());
+	System.out.println(a.removeQueen(2,0));
 	System.out.println(a.toString());
     }
 }
