@@ -11,7 +11,7 @@ public class QueenBoard {
 
 	    // upper diag
 	    int j = c + 1;
-	    for (int i = r - 1; i >= 0 ; i --) {
+	    for (int i = r - 1; i >= 0 && j < board.length; i --) {
 		board[i][j] ++;
 		j ++;
 	    }
@@ -23,7 +23,7 @@ public class QueenBoard {
 
 	    // lower diag
 	    int b = c + 1;
-	    for (int a = r + 1; a < board.length; a ++) {
+	    for (int a = r + 1; a < board.length && b < board.length; a ++) {
 		board[a][b] ++;
 		b ++;
 	    }
@@ -37,15 +37,23 @@ public class QueenBoard {
 	if (board[r][c] == -1) {
 	    board[r][c] ++;
 	    
-	    for (int i = 1; c + i < board.length; i++){
-		if (r - i >= 0) {
-		    board[r - i][c + i] --;
-		}
-		if (r + i < board.length){
-		    board[r + i][c + i] --;
-		}
-		
-		board[r][c + i] --;
+	    // upper diag
+	    int j = c + 1;
+	    for (int i = r - 1; i >= 0 && j < board.length; i --) {
+		board[i][j] --;
+		j ++;
+	    }
+
+	    // right
+	    for (int x = c + 1; x < board.length; x ++) {
+		board[r][x] --;
+	    }
+
+	    // lower diag
+	    int b = c + 1;
+	    for (int a = r + 1; a < board.length && b < board.length; a ++) {
+		board[a][b] --;
+		b ++;
 	    }
 	    
 	    return true;
@@ -106,12 +114,13 @@ public class QueenBoard {
     }
 
     public boolean solveHelp(int col) {
+	//System.out.println(toString());
+	//System.out.println(col);
 	if (col >= board.length){
 	    return true;
 	}
 	for (int r = 0; r < board.length; r++){
 	    if (addQueen(r, col)){
-		addQueen(r, col);
 		if (solveHelp(col + 1)){
                     return true;
 		} 
@@ -131,18 +140,8 @@ public class QueenBoard {
     }
 
     public static void main(String []args) {
-	QueenBoard a = new QueenBoard(5);
-
-	System.out.println(a.addQueen(2, 0));
-	System.out.println(a.toString());
-	System.out.println("----------------");
-	//System.out.println(a.removeQueen(1,0));
-	//System.out.println(a.toString());
-	System.out.println(a.removeQueen(2,0));
-	System.out.println(a.toString());
-
-	System.out.println("----------------");
-	
-	System.out.println(a.solve());
+	QueenBoard b = new QueenBoard(8);
+	System.out.println(b.solve());
+	System.out.println(b.toString());
     }
 }
