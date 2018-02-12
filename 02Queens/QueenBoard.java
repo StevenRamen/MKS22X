@@ -53,6 +53,14 @@ public class QueenBoard {
 	return false;
     }
 
+    private void clear() {
+	for (int i = 0; i < board.length; i++) {
+	    for (int j = 0; j < board[i].length; j ++) {
+		board[i][j] = 0;
+	    }
+	}
+    }
+
     /**
      *@return The output string formatted as follows:
      *All numbers that represent queens are replaced with 'Q' 
@@ -94,9 +102,25 @@ public class QueenBoard {
      */
     
     public boolean solve() {
-	return true;
+	return solveHelp(0);
     }
 
+    public boolean solveHelp(int col) {
+	if (col >= board.length){
+	    return true;
+	}
+	for (int r = 0; r < board.length; r++){
+	    if (addQueen(r, col)){
+		addQueen(r, col);
+		if (solveHelp(col + 1)){
+                    return true;
+		} 
+		removeQueen(r, col);
+	    }
+	}
+	return false;
+    }
+    
     /**
      *@return the number of solutions found, and leaves the board filled with only 0's
      *@throws IllegalStateException when the board starts with any non-zero value
@@ -116,5 +140,9 @@ public class QueenBoard {
 	//System.out.println(a.toString());
 	System.out.println(a.removeQueen(2,0));
 	System.out.println(a.toString());
+
+	System.out.println("----------------");
+	
+	System.out.println(a.solve());
     }
 }
