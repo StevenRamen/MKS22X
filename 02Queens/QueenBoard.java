@@ -136,7 +136,17 @@ public class QueenBoard {
      */
     
     public int countSolutions() {
-	return 0;
+	return countHelp(0);
+    }
+
+    public int countHelp(int n) {
+	if (n == board.length) {
+	    return 1;
+	}
+	for (int r = 0; r < board.length; r ++) {
+	    
+	}
+	//countHelp(n + 1);
     }
 
     public static void main(String []args) {
