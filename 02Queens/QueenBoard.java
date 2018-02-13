@@ -62,9 +62,9 @@ public class QueenBoard {
     }
 
     private void clear() {
-	for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board[i].length; j ++) {
-		board[i][j] = 0;
+	for (int r = 0; r < board.length; r++) {
+	    for (int c = 0; c < board[r].length; c ++) {
+		board[r][c] = 0;
 	    }
 	}
     }
@@ -136,22 +136,38 @@ public class QueenBoard {
      */
     
     public int countSolutions() {
-	return countHelp(0);
+	
+	for (int r = 0; r < board.length; r ++) {
+	    for (int c = 0; c < board[r].length; c ++) {
+		if (board[r][c] != 0) {
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	return countHelp(0, 0);
     }
 
-    public int countHelp(int n) {
-	if (n == board.length) {
-	    return 1;
+    public int countHelp(int c, int total) {
+	if (c == board.length) {
+	    return total;
 	}
 	for (int r = 0; r < board.length; r ++) {
-	    
+	    if (addQueen(r, c)) {
+		if (countHelp(c + 1, total) == 1) {
+		    return 1;
+		}
+		removeQueen(r, c);
+	    }
 	}
-	//countHelp(n + 1);
+	return 0;
     }
 
     public static void main(String []args) {
 	QueenBoard b = new QueenBoard(8);
 	System.out.println(b.solve());
 	System.out.println(b.toString());
+	QueenBoard a = new QueenBoard(8);
+	System.out.println(a.countSolutions());
+	System.out.println(a.toString());
     }
 }
