@@ -61,6 +61,7 @@ public class QueenBoard {
 	return false;
     }
 
+    /*
     private void clear() {
 	for (int r = 0; r < board.length; r++) {
 	    for (int c = 0; c < board[r].length; c ++) {
@@ -68,6 +69,7 @@ public class QueenBoard {
 	    }
 	}
     }
+    */
 
     /**
      *@return The output string formatted as follows:
@@ -134,9 +136,7 @@ public class QueenBoard {
      *@return the number of solutions found, and leaves the board filled with only 0's
      *@throws IllegalStateException when the board starts with any non-zero value
      */
-    
-    public int countSolutions() {
-	
+    private void check() {
 	for (int r = 0; r < board.length; r ++) {
 	    for (int c = 0; c < board[r].length; c ++) {
 		if (board[r][c] != 0) {
@@ -144,30 +144,37 @@ public class QueenBoard {
 		}
 	    }
 	}
+    }
+    
+    public int countSolutions() {
+	check();
 	return countHelp(0, 0);
     }
 
     public int countHelp(int c, int total) {
 	if (c == board.length) {
-	    return total;
+	    return 1;
 	}
 	for (int r = 0; r < board.length; r ++) {
 	    if (addQueen(r, c)) {
-		if (countHelp(c + 1, total) == 1) {
-		    return 1;
-		}
-		removeQueen(r, c);
+	        total += countHelp(c + 1, 0);
 	    }
+	    removeQueen(r, c);
 	}
-	return 0;
+	return total;
     }
 
     public static void main(String []args) {
-	QueenBoard b = new QueenBoard(8);
-	System.out.println(b.solve());
-	System.out.println(b.toString());
 	QueenBoard a = new QueenBoard(8);
 	System.out.println(a.countSolutions());
 	System.out.println(a.toString());
+	System.out.println(a.solve());
+	System.out.println(a.toString());
+
+	for (int i = 0; i < 30; i ++ ) {
+	    QueenBoard b = new QueenBoard(i);
+	    System.out.println(i);
+	    System.out.println(b.countSolutions());
+	}
     }
 }
