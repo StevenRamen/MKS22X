@@ -10,15 +10,6 @@ public class KnightBoard {
 	
 	board = new int[startingRows][startingCols];
     }
-
-    private boolean addKnight(int row, int col) {
-	if (board[r][c] == 0) {
-	    board[r][c] --;
-	    return true;
-	}
-	return false;
-    }
-
     
     
     /* see format for toString below
@@ -66,7 +57,7 @@ public class KnightBoard {
     }
 
     // level is the # of the knight
-    private boolean solveH(int row ,int col, int level) {
+    private boolean solveH(int row, int col, int level) {
 	if (level == board.length * board[row].length){
 	    return true;
 	}
@@ -74,6 +65,15 @@ public class KnightBoard {
 	
 	
 	return false;
+    }
+
+    private int[] getLegalMoves(int row, int col) {
+	int upincr = 0; // 2 or 1
+	int sideincr = 0; // 2 or 1
+
+	if (row + sideincr < board[row].length && col + upincr < board.length) {
+
+	}
     }
     
     public int countSolutions() {
