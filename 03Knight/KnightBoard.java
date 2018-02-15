@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class KnightBoard {
 
     private int[][] board;
@@ -42,7 +44,6 @@ public class KnightBoard {
 		}
 	    }
 	}
-	return false;
     }
 
     public boolean solve(int startingRow, int startingCol) {
@@ -67,13 +68,39 @@ public class KnightBoard {
 	return false;
     }
 
-    private int[] getLegalMoves(int row, int col) {
-	int upincr = 0; // 2 or 1
-	int sideincr = 0; // 2 or 1
+    private int[][] getLegalMoves(int row, int col) {
+	int[][] coords = new int[8][2];
+	int counter = 0;
 
-	if (row + sideincr < board[row].length && col + upincr < board.length) {
-
+	for (int up = 2, side = 1; up > 0 && side < 3; up --) {
+	    if (col + side < board[row].length) {
+		if (row + up < board.length) {
+		    coords[counter][0] = row + up;
+		    coords[counter][1] = col + side;
+		    counter ++;
+		}
+		if (row - up >= 0) {
+		    coords[counter][0] = row - up;
+		    coords[counter][1] = col + side;
+		    counter ++;
+		}
+	    }
+	    if (col - side >= 0) {
+		if (row + up < board.length) {
+		    coords[counter][0] = row + up;
+		    coords[counter][1] = col - side;
+		    counter ++;
+		}
+		if (row - up >= 0) {
+		    coords[counter][0] = row - up;
+		    coords[counter][1] = col - side;
+		    counter ++;	
+		}
+	    }
+	    side ++;
 	}
+	    
+	return coords;
     }
     
     public int countSolutions() {
@@ -83,7 +110,8 @@ public class KnightBoard {
     }
 
     public static void main(String[] args) {
-	KnightBoard a = new KnightBoard(7, 7);
+	KnightBoard a = new KnightBoard(5, 5);
 	System.out.println(a.toString());
+	System.out.println(Arrays.deepToString(a.getLegalMoves(2, 2)));
     }
 }
