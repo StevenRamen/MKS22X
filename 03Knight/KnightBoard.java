@@ -59,12 +59,19 @@ public class KnightBoard {
 
     // level is the # of the knight
     private boolean solveH(int row, int col, int level) {
-	if (level == board.length * board[row].length){
+	int i = 0;
+	if (level > board.length * board[row].length){
 	    return true;
 	}
-
-	
-	
+	if (board[row][col] == 0) {
+	    board[row][col] = level;
+	    while (i < 8) {
+		if (solveH(getLegalMoves(row, col)[i][0], getLegalMoves(row, col)[i][1], level + 1)) {
+		    return true;
+		}
+		i ++;
+	    }
+	}
 	return false;
     }
 
@@ -110,8 +117,9 @@ public class KnightBoard {
     }
 
     public static void main(String[] args) {
-	KnightBoard a = new KnightBoard(5, 5);
+	KnightBoard a = new KnightBoard(7, 7);
 	System.out.println(a.toString());
 	System.out.println(Arrays.deepToString(a.getLegalMoves(2, 2)));
+	System.out.println(a.solve(0, 0));
     }
 }
