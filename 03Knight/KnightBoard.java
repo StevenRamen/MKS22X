@@ -59,18 +59,17 @@ public class KnightBoard {
 
     // level is the # of the knight
     private boolean solveH(int row, int col, int level) {
-	int i = 0;
-	if (level > board.length * board[row].length){
+	if (level == board.length * board[row].length){
 	    return true;
 	}
 	if (board[row][col] == 0) {
 	    board[row][col] = level;
-	    while (i < 8) {
+	    for (int i = 0; i < 8; i ++) {
 		if (solveH(getLegalMoves(row, col)[i][0], getLegalMoves(row, col)[i][1], level + 1)) {
 		    return true;
 		}
-		i ++;
 	    }
+	    board[row][col] = 0;
 	}
 	return false;
     }
@@ -110,9 +109,19 @@ public class KnightBoard {
 	return coords;
     }
     
-    public int countSolutions() {
+    public int countSolutions(int startingRow, int startingCol) {
 	check();
+	if (startingRow < 0 || startingCol < 0) {
+	    throw new IllegalArgumentException("Non-negative parameters only");
+	}
+	if (startingRow >= board.length || startingCol >= board[startingRow].length) {
+	    throw new IllegalArgumentException("Parameters are out of bounds");
+	}
 	
+	return countSolutionsH(startingRow, startingCol, 1);;
+    }
+
+    public int countSolutionsH(int startingRow, int startingCol, int level) {
 	return 0;
     }
 
