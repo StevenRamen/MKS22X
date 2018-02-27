@@ -122,15 +122,22 @@ public class KnightBoard {
     }
 
     public int countSolutionsH(int startingRow, int startingCol, int level, int total) {
+	if (board[startingRow][startingCol] > 0) {
+	    return 0;
+	}
+	board[startingRow][startingCol] = level;
+	
 	if (level == board[0].length * board.length){
-	    board[startingRow][startingCol] = level;
+	    board[startingRow][startingCol] = 0;
 	    return 1;
 	}
 
 	for (int i = 0; i < getLegalMoves(startingRow, startingCol).length; i ++) {
 	    total += countSolutionsH(getLegalMoves(startingRow, startingCol)[i][0], getLegalMoves(startingRow, startingCol)[i][1], level + 1, 0);
 	}
-
+	
+	board[startingRow][startingCol] = 0;
+	
 	return total;
     }
 
