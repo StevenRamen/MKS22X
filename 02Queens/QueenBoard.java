@@ -173,8 +173,7 @@ public class QueenBoard {
 
 	for (int i = 0; i < 30; i ++ ) {
 	    QueenBoard b = new QueenBoard(i);
-	    System.out.println(i);
-	    System.out.println(b.countSolutions());
+	    System.out.println(i + " - " + b.countSolutions());
 	}
     }
 }
