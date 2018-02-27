@@ -118,17 +118,31 @@ public class KnightBoard {
 	    throw new IllegalArgumentException("Parameters are out of bounds");
 	}
 	
-	return countSolutionsH(startingRow, startingCol, 1);;
+	return countSolutionsH(startingRow, startingCol, 1, 0);
     }
 
-    public int countSolutionsH(int startingRow, int startingCol, int level) {
-	return 0;
+    public int countSolutionsH(int startingRow, int startingCol, int level, int total) {
+	if (level == board[0].length * board.length){
+	    board[startingRow][startingCol] = level;
+	    return 1;
+	}
+
+	for (int i = 0; i < getLegalMoves(startingRow, startingCol).length; i ++) {
+	    total += countSolutionsH(getLegalMoves(startingRow, startingCol)[i][0], getLegalMoves(startingRow, startingCol)[i][1], level + 1, 0);
+	}
+
+	return total;
     }
 
     public static void main(String[] args) {
+	/*
 	KnightBoard a = new KnightBoard(7, 7);
 	System.out.println(a.toString());
 	System.out.println(Arrays.deepToString(a.getLegalMoves(2, 2)));
 	System.out.println(a.solve(0, 0));
+	*/
+	
+	KnightBoard b = new KnightBoard(5, 5);
+	System.out.println(b.countSolutions(0, 0));
     }
 }
