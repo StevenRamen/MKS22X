@@ -6,6 +6,9 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    private int rows;
+    private int cols;
+    private int startingRow, startingCol;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -27,21 +30,41 @@ public class Maze{
 	// File reading
 	try {
 	    File text = new File(filename);
+	    Scanner inf = new Scanner(text);
+
+	    // Finding rows and cols
+	    int row = 0;
+	    int col = 0;
+	    while(inf.hasNextLine()){
+		String line = inf.nextLine();
+		row ++;
+		col = line.length();
+	    }
+	    rows = row;
+	    cols = col
+	    
+	    // putting text file into array
+	    String text = "";
+	    while(inf.hasNextLine()){
+		String line = inf.nextLine();
+		text += line;
+	    }
+	    
+	    for (int r = 0, i = 0; r < maze.length; r ++, i ++) {
+		for (int c = 0; c < maze[r].length; c ++) {
+		    if (charAt(i) == 'S') {
+			startingRow = r;
+			startingCol = c;
+		    }
+		    maze[r][c] = charAt(i);
+		    i ++;
+		}
+	    }
 	}
 	catch (FileNotFoundException e) {
 	    throw new FileNotFoundException();
 	}
 
-	Scanner inf = new Scanner(text);
-
-	// Finding rows and cols
-        int row = 0;
-	int col = 0;
-        while(inf.hasNextLine()){
-            String line = inf.nextLine();
-	    row ++;
-	    col = line.length();
-        }
 
 	maze = new char[row][col];
 
@@ -62,20 +85,19 @@ public class Maze{
 	    throw new IllegalStateException();
 	}
 
+    }
 
-	// putting text file into array
-	String text = "";
-	while(inf.hasNextLine()){
-            String line = inf.nextLine();
-	    text += line;
-        }
+    public String toString() {
+	String ans = "";
 
-	for (int r = 0, i = 0; r < maze.length; r ++, i ++) {
-	    for (int c = 0; c < maze[r].length; c ++) {
-		maze[r][c] = charAt(i);
-		i ++;
+	for (int r = 0; r < rows; r ++) {
+	    for (int c = 0; c < cols; c ++) {
+		ans += maze[r][c];
 	    }
+	    ans += "\n"
 	}
+	
+	return ans;
     }
     
 
@@ -113,16 +135,13 @@ public class Maze{
     */
     public int solve(){
 
-            //find the location of the S. 
-
-
             //erase the S
-
+	maze[startingRow][startingCol] = '@';
 
             //and start solving at the location of the s.
-
+	
             //return solve(???,???);
-
+	return solve(startingRow, startingCol);
     }
 
     /*
@@ -145,7 +164,7 @@ public class Maze{
     */
     private int solve(int row, int col){ //you can add more parameters since this is private
 
-
+	
         //automatic animation! You are welcome.
         if(animate){
 
@@ -157,6 +176,8 @@ public class Maze{
 
         //COMPLETE SOLVE
 
+	
+	
         return -1; //so it compiles
     }
 
