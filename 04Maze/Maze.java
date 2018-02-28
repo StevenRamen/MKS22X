@@ -26,7 +26,8 @@ public class Maze{
 
     */
 
-    public Maze(String filename){
+    public Maze(String filename) {
+	animate = false;
 	// File reading
 	try {
 	    File text = new File(filename);
@@ -41,38 +42,38 @@ public class Maze{
 		col = line.length();
 	    }
 	    rows = row;
-	    cols = col
+	    cols = col;
 	    
 	    // putting text file into array
-	    String text = "";
+	    String ans = "";
 	    while(inf.hasNextLine()){
 		String line = inf.nextLine();
-		text += line;
+		ans += line;
 	    }
 	    
 	    for (int r = 0, i = 0; r < maze.length; r ++, i ++) {
 		for (int c = 0; c < maze[r].length; c ++) {
-		    if (charAt(i) == 'S') {
+		    if (ans.charAt(i) == 'S') { // Finds S
 			startingRow = r;
 			startingCol = c;
 		    }
-		    maze[r][c] = charAt(i);
+		    maze[r][c] = ans.charAt(i);
 		    i ++;
 		}
 	    }
 	}
 	catch (FileNotFoundException e) {
-	    throw new FileNotFoundException();
+	    throw new FileNotFoundException("File Not Found");
 	}
 
 
-	maze = new char[row][col];
+	maze = new char[rows][cols];
 
 	// Counting E's and S's
 	int eCount = 0;
 	int sCount = 0;
-	for (int r = 0; r < row; r ++) {
-	    for (int c = 0; c < col; c++) {
+	for (int r = 0; r < rows; r ++) {
+	    for (int c = 0; c < cols; c++) {
 		if (maze[r][c] == 'E') {
 		    eCount ++;
 		}
@@ -94,7 +95,7 @@ public class Maze{
 	    for (int c = 0; c < cols; c ++) {
 		ans += maze[r][c];
 	    }
-	    ans += "\n"
+	    ans += "\n";
 	}
 	
 	return ans;
@@ -176,10 +177,33 @@ public class Maze{
 
         //COMPLETE SOLVE
 
+	if (maze[row][col] == 'E') {
+	    int counter = 0;
+	    for (int r = 0; r < rows; r ++) {
+		for (int c = 0; c < cols; c ++) {
+		    if (maze[r][c] == '@') {
+			counter ++;
+		    }
+		}
+	    }
+	    return counter;
+	}
 	
+	if (row + 1 == ' ') {
+	    return solve(row + 1, col);
+	}
+	if (row - 1 == ' ') {
+	    return solve(row - 1, col);
+	}
+	if (col + 1 == ' ') {
+	    return solve(row, col + 1);
+	}
+	if (col - 1 == ' ') {
+	    return solve(row, col - 1);
+	}
 	
         return -1; //so it compiles
     }
 
-
+    
 }
