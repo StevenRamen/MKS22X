@@ -32,26 +32,26 @@ public class Maze{
 	try {
 	    File text = new File(filename);
 	    Scanner inf = new Scanner(text);
+	
 
-	    // Finding rows and cols
+	    // Finding rows and cols 
 	    int row = 0;
 	    int col = 0;
+	    String ans = "";
 	    while(inf.hasNextLine()){
 		String line = inf.nextLine();
 		row ++;
 		col = line.length();
+		ans += line;
 	    }
 	    rows = row;
 	    cols = col;
-	    
-	    // putting text file into array
-	    String ans = "";
-	    while(inf.hasNextLine()){
-		String line = inf.nextLine();
-		ans += line;
-	    }
-	    
-	    for (int r = 0, i = 0; r < maze.length; r ++, i ++) {
+
+	    maze = new char[rows][cols];
+
+	    int i = 0;
+	    while (i < ans.length()) {
+	    for (int r = 0; r < maze.length; r ++) {
 		for (int c = 0; c < maze[r].length; c ++) {
 		    if (ans.charAt(i) == 'S') { // Finds S
 			startingRow = r;
@@ -61,31 +61,29 @@ public class Maze{
 		    i ++;
 		}
 	    }
-	}
-	catch (FileNotFoundException e) {
-	    throw new FileNotFoundException("File Not Found");
-	}
-
-
-	maze = new char[rows][cols];
-
-	// Counting E's and S's
-	int eCount = 0;
-	int sCount = 0;
-	for (int r = 0; r < rows; r ++) {
-	    for (int c = 0; c < cols; c++) {
-		if (maze[r][c] == 'E') {
-		    eCount ++;
-		}
-		if (maze[r][c] == 'S') {
-		    sCount ++;
+	    }
+	    
+	    // Counting E's and S's
+	    int eCount = 0;
+	    int sCount = 0;
+	    for (int r = 0; r < rows; r ++) {
+		for (int c = 0; c < cols; c++) {
+		    if (maze[r][c] == 'E') {
+			eCount ++;
+		    }
+		    if (maze[r][c] == 'S') {
+			sCount ++;
+		    }
 		}
 	    }
+	    if (eCount != 1 || sCount != 1) {
+		throw new IllegalStateException();
+	    }
+	    
+	} catch (FileNotFoundException e) {
+	    System.exit(0);
 	}
-	if (eCount != 1 || sCount != 1) {
-	    throw new IllegalStateException();
-	}
-
+	
     }
 
     public String toString() {
