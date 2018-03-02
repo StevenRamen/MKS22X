@@ -9,6 +9,7 @@ public class Maze{
     private int rows;
     private int cols;
     private int startingRow, startingCol;
+    private int[][] moves = {{0, 1}, {0, -1}, {1, 0}, {0, -1}};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -26,31 +27,30 @@ public class Maze{
 
     */
 
-    public Maze(String filename) {
+    public Maze(String filename) throws FileNotFoundException {
 	animate = false;
 	// File reading
-	try {
-	    File text = new File(filename);
-	    Scanner inf = new Scanner(text);
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
 	
-
-	    // Finding rows and cols 
-	    int row = 0;
-	    int col = 0;
-	    String ans = "";
-	    while(inf.hasNextLine()){
-		String line = inf.nextLine();
-		row ++;
-		col = line.length();
-		ans += line;
-	    }
-	    rows = row;
-	    cols = col;
-
-	    maze = new char[rows][cols];
-
-	    int i = 0;
-	    while (i < ans.length()) {
+	
+	// Finding rows and cols 
+	int row = 0;
+	int col = 0;
+	String ans = "";
+	while(inf.hasNextLine()){
+	    String line = inf.nextLine();
+	    row ++;
+	    col = line.length();
+	    ans += line;
+	}
+	rows = row;
+	cols = col;
+	
+	maze = new char[rows][cols];
+	
+	int i = 0;
+	while (i < ans.length()) {
 	    for (int r = 0; r < maze.length; r ++) {
 		for (int c = 0; c < maze[r].length; c ++) {
 		    if (ans.charAt(i) == 'S') { // Finds S
@@ -61,34 +61,31 @@ public class Maze{
 		    i ++;
 		}
 	    }
-	    }
-	    
-	    // Counting E's and S's
-	    int eCount = 0;
-	    int sCount = 0;
-	    for (int r = 0; r < rows; r ++) {
-		for (int c = 0; c < cols; c++) {
-		    if (maze[r][c] == 'E') {
-			eCount ++;
-		    }
-		    if (maze[r][c] == 'S') {
-			sCount ++;
-		    }
-		}
-	    }
-	    if (eCount != 1 || sCount != 1) {
-		throw new IllegalStateException();
-	    }
-	    
-	} catch (FileNotFoundException e) {
-	    System.exit(0);
 	}
 	
+	// Counting E's and S's
+	int eCount = 0;
+	int sCount = 0;
+	for (int r = 0; r < rows; r ++) {
+	    for (int c = 0; c < cols; c++) {
+		if (maze[r][c] == 'E') {
+		    eCount ++;
+		}
+		if (maze[r][c] == 'S') {
+		    sCount ++;
+		}
+	    }
+	}
+	if (eCount != 1 || sCount != 1) {
+	    throw new IllegalStateException();
+	}
+	
+	
     }
-
+    
     public String toString() {
 	String ans = "";
-
+	
 	for (int r = 0; r < rows; r ++) {
 	    for (int c = 0; c < cols; c ++) {
 		ans += maze[r][c];
@@ -135,12 +132,12 @@ public class Maze{
     public int solve(){
 
             //erase the S
-	maze[startingRow][startingCol] = '@';
+	maze[startingRow][startingCol] = ' ';
 
             //and start solving at the location of the s.
 	
             //return solve(???,???);
-	return solve(startingRow, startingCol);
+	return solve(startingRow, startingCol, 0);
     }
 
     /*
@@ -161,7 +158,7 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int counter){ //you can add more parameters since this is private
 
 	
         //automatic animation! You are welcome.
@@ -176,30 +173,25 @@ public class Maze{
         //COMPLETE SOLVE
 
 	if (maze[row][col] == 'E') {
-	    int counter = 0;
-	    for (int r = 0; r < rows; r ++) {
-		for (int c = 0; c < cols; c ++) {
-		    if (maze[r][c] == '@') {
-			counter ++;
-		    }
-		}
-	    }
 	    return counter;
 	}
-	
-	if (row + 1 == ' ') {
-	    return solve(row + 1, col);
+	maze[row][col] = '@';
+	for (int x = 0; x < 4; x ++) {
+	    //int updown = row + moves[x][0];
+	    //int leftright = col + moves[x][1];
+	    if (row + moves[x][0] < maze.length && col + moves[x][1] < maze[0].length) { // Check for array index out of bounds
+		if (maze[row + moves[x][0]][col + moves[x][1]] == ' ' || maze[row + moves[x][0]][col + moves[x][1]] == 'E') {
+		    if (solve(row + moves[x][0], col + moves[x][1], counter +1) != -1) {
+			return counter;
+		    }
+		    
+		}
+		
+	    }
+	    
 	}
-	if (row - 1 == ' ') {
-	    return solve(row - 1, col);
-	}
-	if (col + 1 == ' ') {
-	    return solve(row, col + 1);
-	}
-	if (col - 1 == ' ') {
-	    return solve(row, col - 1);
-	}
-	
+	maze[row][col] = '.';
+	// Anthony Lam
         return -1; //so it compiles
     }
 
