@@ -9,6 +9,7 @@ public class Maze{
     private int rows;
     private int cols;
     private int startingRow, startingCol;
+    private int[][] moves = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -133,16 +134,28 @@ public class Maze{
 
     */
     public int solve(){
-
+        
             //erase the S
 	maze[startingRow][startingCol] = '@';
 
             //and start solving at the location of the s.
 	
             //return solve(???,???);
-	return solve(startingRow, startingCol);
+	return solve(startingRow, startingCol, 0);
     }
 
+    private int count(){
+    	int counter = 0;
+    	for (int r = 0; r < maze.length; r ++){
+	    for(int c = 0; c < maze[0].length; c ++){
+		if (maze[r][c] == '@'){
+		    counter ++;
+		}
+	    }
+    	}
+    	return counter;
+    }
+    
     /*
       Recursive Solve function:
 
@@ -161,7 +174,7 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int counter){ //you can add more parameters since this is private
 
 	
         //automatic animation! You are welcome.
@@ -176,29 +189,21 @@ public class Maze{
         //COMPLETE SOLVE
 
 	if (maze[row][col] == 'E') {
-	    int counter = 0;
-	    for (int r = 0; r < rows; r ++) {
-		for (int c = 0; c < cols; c ++) {
-		    if (maze[r][c] == '@') {
-			counter ++;
+	    return count();
+	}
+	maze[row][col] = '@';
+	// Anthony Lam explained this to me
+	for (int x = 0; x < 4; x ++) {
+	    if (row + moves[x][0] < maze.length && col + moves[x][1] < maze[row].length) { // check index out of bounds
+		if (maze[row + moves[x][0]][col + moves[x][1]] == ' ' || maze[row + moves[x][0]][col + moves[x][1]] == 'E') { // check available space
+		    if (solve(row + moves[x][0], col + moves[x][1], counter ++) != -1) {
+			return counter;
 		    }
 		}
+		
 	    }
-	    return counter;
 	}
-	
-	if (row + 1 == ' ') {
-	    return solve(row + 1, col);
-	}
-	if (row - 1 == ' ') {
-	    return solve(row - 1, col);
-	}
-	if (col + 1 == ' ') {
-	    return solve(row, col + 1);
-	}
-	if (col - 1 == ' ') {
-	    return solve(row, col - 1);
-	}
+	maze[row][col] = '.';
 	
         return -1; //so it compiles
     }
