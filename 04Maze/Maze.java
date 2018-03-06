@@ -178,8 +178,7 @@ public class Maze{
 
             clearTerminal();
             System.out.println(this);
-
-            wait(100);
+            wait(70);
         }
 
         //COMPLETE SOLVE
@@ -193,7 +192,7 @@ public class Maze{
 	    if (row + moves[x][0] < maze.length && col + moves[x][1] < maze[row].length) { // check index out of bounds
 		if (maze[row + moves[x][0]][col + moves[x][1]] == ' ' || maze[row + moves[x][0]][col + moves[x][1]] == 'E') { // check available space
 		    if (solve(row + moves[x][0], col + moves[x][1], counter ++) != -1) {
-			return counter;
+			return count();
 		    }
 		    
 		}
