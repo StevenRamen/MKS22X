@@ -179,7 +179,7 @@ public class Maze{
             clearTerminal();
             System.out.println(this);
 
-            wait(20);
+            wait(100);
         }
 
         //COMPLETE SOLVE
