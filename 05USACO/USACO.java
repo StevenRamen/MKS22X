@@ -38,20 +38,47 @@ public class USACO {
 		}
 	    }
 
-	    for (int i = 0; i < instructions.length; i ++) {
-		
-		
-		
-		
+	    //System.out.println(toString(instructions));
+
+	    // stomping
+	    for (int i = 0; i < N; i ++) {
+		int R_s = instructions[i][0] - 1;
+		int C_s = instructions[i][1] - 1;
+		int D_s = instructions[i][2];
+		System.out.println(R_s + " " + C_s + " " + D_s);
+		System.out.println(N);
+		int[][] moves = {{1, 0}, {2, 0}, {0, 1}, {0, 2}, {1, 1}, {1, 2}, {2, 1}, {2, 2}, {0, 0}};
+		for (int x = 0; x < moves.length; x ++) {
+		    int row = moves[x][0];
+		    int col = moves[x][1];
+		    if (lake[R_s + row][C_s + col] > lake[R_s][C_s]) {
+			lake[R_s + row][C_s + col] = lake[R_s][C_s];
+		    }
+	      	}
+		System.out.println(toString(lake));
 	    }
+	    System.out.println(toString(lake));
+	    
+	    // subtracting elevation 
+	    int[][] bleh = new int[R][C];
+	    int total = 0;
+	    for (int r = 0; r < R; r ++) {
+		for (int c = 0; c < C; c ++) {
+		    if (lake[r][c] - E >= 0) {
+			bleh[r][c] = lake[r][c] - E;
+		    }
+		    else {
+			bleh[r][c] = 0;
+		    }
+		    total += bleh[r][c];
+		}
+	    }
+
+	    return total * 72 * 72;
 	    
 	} catch (FileNotFoundException e) {
 	    System.out.println("File Not Found");
 	}
-
-	
-
-	
 	return 0;
     }
 
@@ -69,8 +96,19 @@ public class USACO {
 	return 0;
     }
 
+    public static String toString(int[][] board) {
+	String ans = "";
+	for (int r = 0; r < board.length; r ++) {
+	    for (int c = 0; c < board[r].length; c ++) {
+		ans += board[r][c] + " ";
+	    }
+	    ans += "\n";
+	}
+	return ans;
+    }
+    
     public static void main(String[] args) {
-	//bronze("makelake.in");
+        System.out.println(bronze("makelake.in"));
     }
 }
 
