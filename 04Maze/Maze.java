@@ -184,7 +184,7 @@ public class Maze{
         //COMPLETE SOLVE
 
 	if (maze[row][col] == 'E') {
-	    return count();
+	    return counter;
 	}
 	maze[row][col] = '@';
 	// Anthony Lam explained this to me
@@ -192,7 +192,7 @@ public class Maze{
 	    if (row + moves[x][0] < maze.length && col + moves[x][1] < maze[row].length) { // check index out of bounds
 		if (maze[row + moves[x][0]][col + moves[x][1]] == ' ' || maze[row + moves[x][0]][col + moves[x][1]] == 'E') { // check available space
 		    if (solve(row + moves[x][0], col + moves[x][1], counter ++) != -1) {
-			return count();
+			return counter;
 		    }
 		    
 		}

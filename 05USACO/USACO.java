@@ -26,6 +26,7 @@ public class USACO {
 		    lake[r][c] = scan.nextInt();
 		}
 	    }
+	    System.out.println(toString(lake));
 	    /*
 	    int R_s = scan.nextInt();
 	    int C_s = scan.nextInt();
@@ -46,18 +47,21 @@ public class USACO {
 		int C_s = instructions[i][1] - 1;
 		int D_s = instructions[i][2];
 		System.out.println(R_s + " " + C_s + " " + D_s);
-		System.out.println(N);
 		int[][] moves = {{1, 0}, {2, 0}, {0, 1}, {0, 2}, {1, 1}, {1, 2}, {2, 1}, {2, 2}, {0, 0}};
 		for (int x = 0; x < moves.length; x ++) {
-		    int row = moves[x][0];
-		    int col = moves[x][1];
-		    if (lake[R_s + row][C_s + col] > lake[R_s][C_s]) {
-			lake[R_s + row][C_s + col] = lake[R_s][C_s];
+		    int row = R_s + moves[x][0];
+		    int col = C_s + moves[x][1];
+		    if (lake[row][col] - D_s <= lake[R_s][C_s]) { // if it's possible to stomp
+			if (lake[row][col] > lake[R_s][C_s]) { // if greater than row/col change to number
+			    lake[row][col] = lake[R_s][C_s];
+			}
+			else {
+			    lake[row][col] = lake[R_s][C_s] - D_s;
+			}
 		    }
 	      	}
 		System.out.println(toString(lake));
 	    }
-	    System.out.println(toString(lake));
 	    
 	    // subtracting elevation 
 	    int[][] bleh = new int[R][C];
