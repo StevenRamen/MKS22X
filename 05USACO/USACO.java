@@ -26,7 +26,6 @@ public class USACO {
 		    lake[r][c] = scan.nextInt();
 		}
 	    }
-	    System.out.println(toString(lake));
 	    /*
 	    int R_s = scan.nextInt();
 	    int C_s = scan.nextInt();
@@ -43,24 +42,30 @@ public class USACO {
 
 	    // stomping
 	    for (int i = 0; i < N; i ++) {
+        
 		int R_s = instructions[i][0] - 1;
 		int C_s = instructions[i][1] - 1;
 		int D_s = instructions[i][2];
-		System.out.println(R_s + " " + C_s + " " + D_s);
-		int[][] moves = {{1, 0}, {2, 0}, {0, 1}, {0, 2}, {1, 1}, {1, 2}, {2, 1}, {2, 2}, {0, 0}};
-		for (int x = 0; x < moves.length; x ++) {
-		    int row = R_s + moves[x][0];
-		    int col = C_s + moves[x][1];
-		    if (lake[row][col] - D_s <= lake[R_s][C_s]) { // if it's possible to stomp
-			if (lake[row][col] > lake[R_s][C_s]) { // if greater than row/col change to number
-			    lake[row][col] = lake[R_s][C_s];
-			}
-			else {
-			    lake[row][col] = lake[R_s][C_s] - D_s;
+		//System.out.println(R_s + " " + C_s + " " + D_s);
+
+	        int max = lake[R_s][C_s];
+		for (int r = R_s; r < R_s + 3; r ++) {
+		    for (int c = R_s; c < C_s + 3; c ++) {
+			if (lake[r][c] > max) {
+			    max = lake[r][c];
 			}
 		    }
-	      	}
-		System.out.println(toString(lake));
+		}
+
+		max -= D_s;
+		
+	        for (int r = R_s; r < R_s + 3; r ++) {
+		    for (int c = R_s; c < C_s + 3; c ++) {
+			if (lake[r][c] > max) {
+			    lake[r][c] = max;
+			}
+		    }
+		}
 	    }
 	    
 	    // subtracting elevation 
@@ -68,8 +73,8 @@ public class USACO {
 	    int total = 0;
 	    for (int r = 0; r < R; r ++) {
 		for (int c = 0; c < C; c ++) {
-		    if (lake[r][c] - E >= 0) {
-			bleh[r][c] = lake[r][c] - E;
+		    if (E - lake[r][c] >= 0) {
+			bleh[r][c] = E - lake[r][c];
 		    }
 		    else {
 			bleh[r][c] = 0;
@@ -77,7 +82,6 @@ public class USACO {
 		    total += bleh[r][c];
 		}
 	    }
-
 	    return total * 72 * 72;
 	    
 	} catch (FileNotFoundException e) {
@@ -112,7 +116,7 @@ public class USACO {
     }
     
     public static void main(String[] args) {
-        System.out.println(bronze("makelake.in"));
+        System.out.println(bronze("makelake.1.in"));
     }
 }
 
