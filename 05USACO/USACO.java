@@ -98,6 +98,33 @@ public class USACO {
 	    File file = new File(filename);
 	    Scanner scan = new Scanner(file);
 	    
+	    int N = scan.nextInt(); // rows
+	    int M = scan.nextInt(); // cols
+	    int T = scan.nextInt(); // steps
+
+	    // sets up board
+	    int[][] floor = new int[N][M];
+	    for (int r = 0; r < N; r ++) {
+		String line = scan.next();
+		for (int c = 0; c < M; c ++) {
+		    if (line.charAt(c) == '.') {
+			floor[r][c] = 0;
+		    }
+		    else {
+			floor[r][c] = -1;
+		    }
+		}
+	    }
+
+	    int R1 = scan.nextInt();
+	    int C1 = scan.nextInt();
+	    int R2 = scan.nextInt();
+	    int C2 = scan.nextInt();
+	    
+	    System.out.println(N + " " + M + " " + T);
+	    System.out.println(R1 + " " + C1 + " " + R2 + " " + C2);
+	    
+	    
 	} catch (FileNotFoundException e) {
 	    System.out.println("File Not Found");
 	}
@@ -116,7 +143,8 @@ public class USACO {
     }
     
     public static void main(String[] args) {
-        System.out.println(bronze("makelake.1.in"));
+        //System.out.println(bronze("makelake.1.in"));
+	System.out.println(silver("ctravel.1.in"));
     }
 }
 
