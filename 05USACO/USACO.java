@@ -120,9 +120,12 @@ public class USACO {
 	    int C1 = scan.nextInt();
 	    int R2 = scan.nextInt();
 	    int C2 = scan.nextInt();
-	    
+	    /*
 	    System.out.println(N + " " + M + " " + T);
 	    System.out.println(R1 + " " + C1 + " " + R2 + " " + C2);
+	    System.out.println(toString(floor));
+	    */
+
 	    
 	    
 	} catch (FileNotFoundException e) {
