@@ -3,6 +3,11 @@ import java.io.*;
 import java.util.Arrays;
 
 public class USACO {
+
+    private static int R, C, E, N;
+    private static int[][] instructions;
+    private static int R_s, C_s, D_s;
+    
     
     public USACO() {
 	
@@ -14,10 +19,10 @@ public class USACO {
 	    File file = new File(filename);
 	    Scanner scan = new Scanner(file);
 	    
-	    int R = scan.nextInt(); // rows
-	    int C = scan.nextInt(); // cols
-	    int E = scan.nextInt(); // elevation
-	    int N = scan.nextInt(); // # of instructions
+	    R = scan.nextInt(); // rows
+	    C = scan.nextInt(); // cols
+	    E = scan.nextInt(); // elevation
+	    N = scan.nextInt(); // # of instructions
 
 	    // sets up board
 	    int[][] lake = new int[R][C];
@@ -31,7 +36,7 @@ public class USACO {
 	    int C_s = scan.nextInt();
 	    int D_s = scan.nextInt();
 	    */
-	    int[][] instructions = new int[N][3];
+	    instructions = new int[N][3];
 	    for (int i = 0; i < N; i ++) {
 		for (int x = 0; x < 3; x ++) {
 		    instructions[i][x] = scan.nextInt();
@@ -43,9 +48,9 @@ public class USACO {
 	    // stomping
 	    for (int i = 0; i < N; i ++) {
         
-		int R_s = instructions[i][0] - 1;
-		int C_s = instructions[i][1] - 1;
-		int D_s = instructions[i][2];
+	        R_s = instructions[i][0] - 1;
+		C_s = instructions[i][1] - 1;
+		D_s = instructions[i][2];
 		//System.out.println(R_s + " " + C_s + " " + D_s);
 
 	        int max = lake[R_s][C_s];
@@ -73,7 +78,7 @@ public class USACO {
 	    int total = 0;
 	    for (int r = 0; r < R; r ++) {
 		for (int c = 0; c < C; c ++) {
-		    if (E - lake[r][c] >= 0) {
+		    if (E - lake[r][c] > 0) {
 			bleh[r][c] = E - lake[r][c];
 		    }
 		    else {
@@ -120,12 +125,15 @@ public class USACO {
 	    int C1 = scan.nextInt();
 	    int R2 = scan.nextInt();
 	    int C2 = scan.nextInt();
+	    
 	    /*
 	    System.out.println(N + " " + M + " " + T);
 	    System.out.println(R1 + " " + C1 + " " + R2 + " " + C2);
 	    System.out.println(toString(floor));
 	    */
-
+	    
+	    int[][] numOfWays = new int[N][M];
+	    
 	    
 	    
 	} catch (FileNotFoundException e) {
@@ -146,8 +154,8 @@ public class USACO {
     }
     
     public static void main(String[] args) {
-        //System.out.println(bronze("makelake.1.in"));
-	System.out.println(silver("ctravel.1.in"));
+        System.out.println(bronze("makelake.2.in"));
+	//System.out.println(silver("ctravel.1.in"));
     }
 }
 
