@@ -15,7 +15,7 @@ public class USACO {
 
     public static void main(String[] args) {
 	USACO x = new USACO();
-	//System.out.println(bronze("makelake.2.in"));
+	System.out.println(bronze("makelake.1.in"));
 	//System.out.println(silver("ctravel.1.in"));
     }
 }
