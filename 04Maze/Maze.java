@@ -149,7 +149,7 @@ public class Maze{
 		}
 	    }
     	}
-    	return counter;
+    	return count();
     }
     
     /*
@@ -171,8 +171,6 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col, int counter){ //you can add more parameters since this is private
-
-	
         //automatic animation! You are welcome.
         if(animate){
 
@@ -191,8 +189,9 @@ public class Maze{
 	for (int x = 0; x < 4; x ++) {
 	    if (row + moves[x][0] < maze.length && col + moves[x][1] < maze[row].length) { // check index out of bounds
 		if (maze[row + moves[x][0]][col + moves[x][1]] == ' ' || maze[row + moves[x][0]][col + moves[x][1]] == 'E') { // check available space
-		    if (solve(row + moves[x][0], col + moves[x][1], counter ++) != -1) {
-			return counter;
+		    int n = solve(row + moves[x][0], col + moves[x][1], counter + 1);
+		    if (n > 0) {
+		        return n;
 		    }
 		    
 		}
