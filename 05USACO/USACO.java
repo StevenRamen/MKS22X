@@ -32,6 +32,7 @@ public class USACO {
 	    C_s = scan.nextInt() - 1;
 	    D_s = scan.nextInt();
 
+	    // stomp part
 	    int max = lake[R_s][C_s];
 	    
 	    for (int r = R_s; r < R_s + 3; r ++) {
@@ -53,15 +54,18 @@ public class USACO {
 	}
 	
 	
-	int[][] bleh = new int[R][C];
+	//int[][] bleh = new int[R][C];
 	for (int r = 0; r < R; r ++) {
 	    for (int c = 0; c < C; c ++) {
 		if (E - lake[r][c] > 0) {
 		    ans += E - lake[r][c];
-		    bleh[r][c] = E - lake[r][c];
+		    //bleh[r][c] = E - lake[r][c];
 		}
 	    }
 	}
+	// somethings wrong with my total it is higher than expected
+	//System.out.println(toString(bleh));
+	//System.out.println(ans);
 	return ans * 72 * 72;
 	
     }
@@ -73,7 +77,6 @@ public class USACO {
 	int R1, C1, R2, C2;
 	int[][] copy1;
 	int[][] copy2;
-	int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // downupleftright
 	
 	// Problem 7: Cow Travelling
         
@@ -137,7 +140,7 @@ public class USACO {
 	    }
 	    T --;
 	}
-	System.out.println(toString(copy2));
+	//System.out.println(toString(copy2));
 	return copy2[R2][C2];	
     }
 
@@ -153,8 +156,11 @@ public class USACO {
     }
     
     public static void main(String[] args) throws FileNotFoundException {
-	//System.out.println(bronze("makelake.1.in"));
-	System.out.println(silver("ctravel.1.in"));
+	for (int i = 1; i < 10; i ++) {
+	    System.out.println(bronze("makelake." + i + ".in"));
+	    //System.out.println(silver("ctravel." + i + ".in"));
+	}
+	//System.out.println(silver("ctravel.1.in"));
     }
 }
 
