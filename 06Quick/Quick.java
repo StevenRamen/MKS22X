@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Quick {
 
-    public static int partition(int[] data, int lo, int hi) {
+    public static int partitionOld(int[] data, int lo, int hi) {
 	int pi = (int)(Math.random() * (hi - lo)) + lo;
 
         swap(data, pi, lo);
@@ -20,8 +20,31 @@ public class Quick {
 	}
 	swap(data, j, lo);
 	//System.out.println(Arrays.toString(data));
-	System.out.println(j);
+	//System.out.println(j);
 	return j;
+    }
+
+    public static int partition(int[] data, int lo, int hi) {
+	int i = 0;
+	int lt = 0;
+	int gt = data.length - 1;
+	int pi = (int)(Math.random() * (hi - lo)) + lo;
+
+	while (i <= gt) {
+	    if (data[i] == data[pi]) {
+		i ++;
+	    }
+	    if (data[i] > data[pi]) {
+		swap(data, i, gt);
+		gt --;
+	    }
+	    if (data[i] < data[pi]) {
+		swap(data, i, lt);
+		lt ++;
+		i ++;
+	    }
+	}
+	return i;
     }
 
     private static void swap(int[] data, int a, int b) {
@@ -44,8 +67,9 @@ public class Quick {
 
     private static void quickSortH(int[] data, int lo, int hi) {
 	if (lo < hi) {
-	    quickSortH(data, lo, partition(data, lo, hi) - 1);
-	    quickSortH(data, partition(data, lo, hi) + 1, hi);
+	    int index = partition(data, lo, hi);
+	    quickSortH(data, lo, index - 1);
+	    quickSortH(data, index + 1, hi);
 	}
     }
 	
@@ -53,8 +77,8 @@ public class Quick {
     public static void main(String[] args) {
 	int[] data = {7, 2, 1, 8, 6, 3, 5, 4};
 	System.out.println(Arrays.toString(data));
-	//System.out.println(partition(data, 0, data.length - 1));
-        quickSort(data);
+	System.out.println(partition(data, 0, data.length - 1));
+        //quickSort(data);
 	System.out.println(Arrays.toString(data));
     }
 }
