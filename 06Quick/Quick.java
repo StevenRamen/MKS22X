@@ -24,27 +24,27 @@ public class Quick {
 	return j;
     }
 
-    public static int partition(int[] data, int lo, int hi) {
+    public static int[] partition(int[] data, int lo, int hi) {
 	int i = 0;
 	int lt = 0;
 	int gt = data.length - 1;
 	int pi = (int)(Math.random() * (hi - lo)) + lo;
+	int pivotIndex = data[pi];
 
 	while (i <= gt) {
-	    if (data[i] == data[pi]) {
+	    if (data[i] == pivotIndex) {
 		i ++;
-	    }
-	    if (data[i] > data[pi]) {
+	    } else if (data[i] > pivotIndex) {
 		swap(data, i, gt);
 		gt --;
-	    }
-	    if (data[i] < data[pi]) {
+	    } else if (data[i] < pivotIndex) {
 		swap(data, i, lt);
 		lt ++;
 		i ++;
 	    }
 	}
-	return i;
+	int[] ans = {lt, i};
+	return ans;
     }
 
     private static void swap(int[] data, int a, int b) {
@@ -57,8 +57,12 @@ public class Quick {
     public static int quickselect(int []data, int k){
 	//return the value that is the kth smallest value of the array. 
 	//use your partition method to help you accomplish this.
+	int[] index = partition(data, 0, data.length - 1);
+	while (index[0] > k || index[1] < k) {
+	    index = partition(data, 0, index[0]);
+	}
 	
-	return 0;
+	return data[k];
     }
 
     public static void quickSort(int[] data) {
@@ -67,18 +71,19 @@ public class Quick {
 
     private static void quickSortH(int[] data, int lo, int hi) {
 	if (lo < hi) {
-	    int index = partition(data, lo, hi);
-	    quickSortH(data, lo, index - 1);
-	    quickSortH(data, index + 1, hi);
+	    int[] index = partition(data, lo, hi);
+	    quickSortH(data, lo, index[0]);
+	    quickSortH(data, index[1], hi);
 	}
     }
 	
 
     public static void main(String[] args) {
-	int[] data = {7, 2, 1, 8, 6, 3, 5, 4};
+	int[] data = {0, 1, 2, 1, 1, 0, 0, 2, 2, 2, 1, 0, 1, 2, 0, 1, 2, 2};// {7, 2, 1, 8, 6, 3, 5, 4};
 	System.out.println(Arrays.toString(data));
-	System.out.println(partition(data, 0, data.length - 1));
+	//System.out.println(partition(data, 0, data.length - 1));
         //quickSort(data);
+	System.out.println(quickselect(data, 4));
 	System.out.println(Arrays.toString(data));
     }
 }
