@@ -57,12 +57,20 @@ public class Quick {
     public static int quickselect(int []data, int k){
 	//return the value that is the kth smallest value of the array. 
 	//use your partition method to help you accomplish this.
+	int lo = 0;
+	int hi = data.length - 1;
 	int[] index = partition(data, 0, data.length - 1);
 	while (index[0] > k || index[1] < k) {
-	    index = partition(data, 0, index[0]);
+	    if (index[0] > k) {
+		hi = index[0] - 1;
+		index = partition(data, lo, hi);
+	    } else {
+		lo = index[1] + 1;
+		index = partition(data, lo, hi);
+	    }
 	}
 	
-	return data[k];
+	return data[index[0]];
     }
 
     public static void quickSort(int[] data) {
@@ -79,11 +87,13 @@ public class Quick {
 	
 
     public static void main(String[] args) {
-	int[] data = {0, 1, 2, 1, 1, 0, 0, 2, 2, 2, 1, 0, 1, 2, 0, 1, 2, 2};// {7, 2, 1, 8, 6, 3, 5, 4};
+	//int[] data = {0, 1, 2, 1, 1, 0, 0, 2, 2, 2, 1, 0, 1, 2, 0, 1, 2, 2};
+	int[] data = {7, 2, 1, 8, 6, 3, 5, 4};
 	System.out.println(Arrays.toString(data));
 	//System.out.println(partition(data, 0, data.length - 1));
         //quickSort(data);
-	System.out.println(quickselect(data, 4));
+	System.out.println(quickselect(data, 3));
 	System.out.println(Arrays.toString(data));
+
     }
 }
