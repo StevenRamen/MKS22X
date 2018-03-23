@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Merge {
-    
+    /*
     public static int[] merge(int[] data1, int[] data2) {
 	int[] output = new int[data1.length + data2.length];
 
@@ -32,6 +32,7 @@ public class Merge {
 	}
 	return output;
     }
+    */
     
     public static void merge(int[] data, int[] temp, int lo, int mid, int hi) {
 	int index1 = lo;
@@ -55,6 +56,18 @@ public class Merge {
 	    outputIndex ++;
 	}
     }
+
+    public static void insertionSort(int[] data, int lo, int hi) {
+	for (int i = lo + 1; i < hi; i++) {
+	    int key = data[i];
+	    int x = i - 1;
+	    while (x >= 0 && data[x] > key) {
+		data[x + 1] = data[x];
+		x = x - 1;
+	    }
+	    data[x + 1] = key;
+	}
+    }
     
     public static void mergesort(int[] data) {
 	int[] temp = new int[data.length];
@@ -63,14 +76,21 @@ public class Merge {
     }
 
     public static void msort(int[] data, int[] temp, int lo, int hi) {
+	int mid = (lo + hi) / 2;
+	
 	if (lo < hi) {
 	    for (int i = lo; i <= hi; i ++) {
 		temp[i] = data[i];
 	    }
-	    int mid = (lo + hi) / 2;
 	    
 	    msort(temp, data, lo, mid);
 	    msort(temp, data, mid + 1, hi);
+	    /*
+	    if (hi - lo <= 10) {
+		insertionSort(temp, lo, mid);
+		insertionSort(temp, mid + 1, hi);
+	    }
+	    */
 	    
 	    merge(data, temp, lo, mid, hi);
 	}
@@ -82,8 +102,8 @@ public class Merge {
 	//System.out.println(Arrays.toString(merge(data1, data2)));
 	int[] data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2};
 	int[] data1 = {1, 5, 7, 2, 76, 213, 876, 32, 2, 76, 54, 303, 4534, 2435, 5453};
-	Merge.mergesort(data1);
-	System.out.println(Arrays.toString(data1));
+	Merge.insertionSort(data, 0, data.length - 1);
+	System.out.println(Arrays.toString(data));
     }
     
 }
