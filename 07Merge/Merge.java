@@ -76,24 +76,25 @@ public class Merge {
     }
 
     public static void msort(int[] data, int[] temp, int lo, int hi) {
+	if (lo >= hi) {
+	    return;
+	}
+	for (int i = lo; i <= hi; i ++) {
+	    temp[i] = data[i];
+	}
+	
 	int mid = (lo + hi) / 2;
 	
-	if (lo < hi) {
-	    for (int i = lo; i <= hi; i ++) {
-		temp[i] = data[i];
-	    }
-	    
-	    msort(temp, data, lo, mid);
-	    msort(temp, data, mid + 1, hi);
-	    /*
-	    if (hi - lo <= 10) {
-		insertionSort(temp, lo, mid);
-		insertionSort(temp, mid + 1, hi);
-	    }
-	    */
-	    
-	    merge(data, temp, lo, mid, hi);
-	}
+	msort(temp, data, lo, mid);
+	msort(temp, data, mid + 1, hi);
+	/*
+	  if (hi - lo <= 10) {
+	  insertionSort(temp, lo, mid);
+	  insertionSort(temp, mid + 1, hi);
+	  }
+	*/
+	
+	merge(data, temp, lo, mid, hi);
     }
     
     public static void main(String[] args) {
