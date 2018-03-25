@@ -1,6 +1,7 @@
-import java.util.*;
+import java.util.Arrays;
 
 public class Driver {
+    
     //Sort testing code
     private static final int INCREASE = 0;
     private static final int DECREASE = 1;
@@ -9,8 +10,8 @@ public class Driver {
     private static final int EMPTY = 4;
     
     private static String name(int i){
-	if(i==0)return "Increasing";
-	if(i==1)return "Decreasing";
+	if(i==0)return "Increassing";
+	if(i==1)return "Decreassing";
 	if(i==2)return "Normal Random";
 	if(i==3)return "Random with Few Values";
 	if(i==4)return "size 0 array";
@@ -55,28 +56,27 @@ public class Driver {
     }
     
     public static void main(String[]args){
+	// 
+	if(args.length < 2)return;
 	
-	for (int i = 0; i < 5; i ++) {
-	    
-	    int size = 20;
-	    int type = i;
-	    
-	    int [] start = makeArray(size,type);
-	    int [] result = Arrays.copyOf(start,start.length);
-	    Arrays.sort(result);
-	    
-	    long startTime = System.currentTimeMillis();
-	    /*
-	     * Test your sort here!
-	     */
-	    Quick.quickSort(start);
-	    
-	    long elapsedTime = System.currentTimeMillis() - startTime;
-	    if(Arrays.equals(start,result)){
-		System.out.println("PASS Case . "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
-	    }else{
-		System.out.println("FAIL ! Case  ERROR! "+name(type)+" array, size:"+size+"  ERROR!");
-	    }
+	int size =  Integer.parseInt(args[0]);
+	int type =   Integer.parseInt(args[1]);
+	
+	int [] start = makeArray(size,type);
+	int [] result = Arrays.copyOf(start,start.length);
+	Arrays.sort(result);
+	
+	long startTime = System.currentTimeMillis();
+	/*
+	 * Test your sort here!
+	 */
+	Quick.quickSort(start);
+	
+	long elapsedTime = System.currentTimeMillis() - startTime;
+	if(Arrays.equals(start,result)){
+	    System.out.println("PASS Case "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
+	}else{
+	    System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
 	}
     }
 }
