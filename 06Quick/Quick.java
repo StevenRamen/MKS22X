@@ -99,7 +99,18 @@ public class Quick {
 	    quickSortH(data, index[1], hi);
 	}
     }
-	
+
+    public static void insertionSort(int[] data, int lo, int hi) {
+	for (int i = lo + 1; i < hi; i++) {
+	    int key = data[i];
+	    int x = i - 1;
+	    while (x >= 0 && data[x] > key) {
+		data[x + 1] = data[x];
+		x = x - 1;
+	    }
+	    data[x + 1] = key;
+	}
+    }
 
     public static void main(String[] args) {
 	//int[] data = {0, 1, 2, 1, 1, 0, 0, 2, 2, 2, 1, 0, 1, 2, 0, 1, 2, 2};
