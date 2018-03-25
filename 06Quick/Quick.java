@@ -25,19 +25,19 @@ public class Quick {
     }
 
     public static int[] partition(int[] data, int lo, int hi) {
-	int i = 0;
-	int lt = 0;
-	int gt = data.length - 1;
+	int i = lo;
+	int lt = lo;
+	int gt = hi;
 	int pi = (int)(Math.random() * (hi - lo)) + lo;
-	int pivotIndex = data[pi];
+	int pivot = data[pi];
 
 	while (i <= gt) {
-	    if (data[i] == pivotIndex) {
+	    if (data[i] == pivot) {
 		i ++;
-	    } else if (data[i] > pivotIndex) {
+	    } else if (data[i] > pivot) {
 		swap(data, i, gt);
 		gt --;
-	    } else if (data[i] < pivotIndex) {
+	    } else if (data[i] < pivot) {
 		swap(data, i, lt);
 		lt ++;
 		i ++;
@@ -57,20 +57,35 @@ public class Quick {
     public static int quickselect(int []data, int k){
 	//return the value that is the kth smallest value of the array. 
 	//use your partition method to help you accomplish this.
-	int lo = 0;
-	int hi = data.length - 1;
-	int[] index = partition(data, 0, data.length - 1);
-	while (index[0] > k || index[1] < k) {
-	    if (index[0] > k) {
-		hi = index[0] - 1;
-		index = partition(data, lo, hi);
-	    } else {
-		lo = index[1] + 1;
-		index = partition(data, lo, hi);
+	if (k < data.length) {
+	    int lo = 0;
+	    int hi = data.length - 1;
+	    //int[] index = partition(data, 0, data.length - 1);
+	    /*
+	      while (index[0] > k || index[1] < k) {
+	      if (index[0] > k) {
+	      hi = index[0] - 1;
+	      index = partition(data, lo, hi);
+	      } else {
+	      lo = index[1] + 1;
+	      index = partition(data, lo, hi);
+	      }
+	      }
+	    */
+	    int index = partitionOld(data, lo, hi);
+	    while (lo < hi && k != index) {
+		if (index > k) {
+		    hi = index -1;
+		} else if (index < k) {
+		    lo = index + 1;
+		}
+		index = partitionOld(data, lo, hi);
 	    }
+	    
+	    //return data[index[0]];
+	    return data[k];
 	}
-	
-	return data[index[0]];
+	return -1;
     }
 
     public static void quickSort(int[] data) {
@@ -91,8 +106,8 @@ public class Quick {
 	int[] data = {7, 2, 1, 8, 6, 3, 5, 4};
 	System.out.println(Arrays.toString(data));
 	//System.out.println(partition(data, 0, data.length - 1));
-        //quickSort(data);
-	System.out.println(quickselect(data, 3));
+        quickSort(data);
+	//System.out.println(quickselect(data, 8));
 	System.out.println(Arrays.toString(data));
 
     }
