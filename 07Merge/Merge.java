@@ -76,26 +76,32 @@ public class Merge {
     }
 
     public static void msort(int[] data, int[] temp, int lo, int hi) {
-	if (lo >= hi) {
+	/*if (hi - lo <= 10) {
+	    insertionSort(data, lo, hi);
 	    return;
-	}
-	for (int i = lo; i <= hi; i ++) {
-	    temp[i] = data[i];
-	}
-	
-	int mid = (lo + hi) / 2;
-	
-	msort(temp, data, lo, mid);
-	msort(temp, data, mid + 1, hi);
-	/*
-	  if (hi - lo <= 10) {
-	  insertionSort(temp, lo, mid);
-	  insertionSort(temp, mid + 1, hi);
-	  }
+	} else {
 	*/
-	
-	merge(data, temp, lo, mid, hi);
+	    for (int i = lo; i <= hi; i ++) {
+		temp[i] = data[i];
+	    }
+	    /*
+	      if (hi - lo < 10) {
+	      insertionSort(data, lo, hi);
+	      }
+	    */
+	    int mid = (lo + hi) / 2;
+	    
+	    msort(temp, data, lo, mid);
+	    msort(temp, data, mid + 1, hi);
+	    /*
+	      if (hi - lo <= 10) {
+	      insertionSort(temp, lo, mid);
+	      insertionSort(temp, mid + 1, hi);
+	      }
+	    */
+	    merge(data, temp, lo, mid, hi);
     }
+
     
     public static void main(String[] args) {
 	//int[] data1 = {1, 56, 85, 3, 54, 234, 321};
@@ -103,8 +109,8 @@ public class Merge {
 	//System.out.println(Arrays.toString(merge(data1, data2)));
 	int[] data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2};
 	int[] data1 = {1, 5, 7, 2, 76, 213, 876, 32, 2, 76, 54, 303, 4534, 2435, 5453};
-	Merge.insertionSort(data, 0, data.length - 1);
-	System.out.println(Arrays.toString(data));
+	Merge.insertionSort(data1, 0, data1.length - 1);
+	System.out.println(Arrays.toString(data1));
     }
     
 }
