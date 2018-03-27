@@ -35,17 +35,17 @@ public class USACO {
 	    // stomp part
 	    int max = lake[R_s][C_s];
 	    
-	    for (int r = R_s; r < R_s + 3; r ++) {
-		for (int c = C_s; c < C_s + 3; c ++) {
-		    if (lake[r][c] >= max) {
+	    for (int r = R_s; r < R_s + 2 && r < lake.length; r ++) {
+		for (int c = C_s; c < C_s + 2 && c < lake[r].length; c ++) {
+		    if (lake[r][c] > max) {
 			max = lake[r][c];
 		    }
 		}
 	    }
 	    int temp = max - D_s;
-	    for (int r = R_s; r < R_s + 3; r ++) {
-		for (int c = R_s; c < C_s + 3; c ++) {
-		    if (lake[r][c] > temp) {
+	    for (int r = R_s; r < R_s + 3 && r < lake.length; r ++) {
+		for (int c = R_s; c < C_s + 3 && c < lake[r].length; c ++) {
+		    if (temp < lake[r][c]) {
 			lake[r][c] = temp;
 		    }
 		}
@@ -54,12 +54,13 @@ public class USACO {
 	}
 	
 	
-	//int[][] bleh = new int[R][C];
 	for (int r = 0; r < R; r ++) {
 	    for (int c = 0; c < C; c ++) {
 		if (E - lake[r][c] > 0) {
-		    ans += E - lake[r][c];
-		    //bleh[r][c] = E - lake[r][c];
+		    lake[r][c] = E - lake[r][c];
+		    ans += lake[r][c];
+		} else {
+		    lake[r][c] = 0;
 		}
 	    }
 	}
@@ -75,8 +76,10 @@ public class USACO {
     public static int silver(String filename) throws FileNotFoundException {
         int N, M, T;
 	int R1, C1, R2, C2;
+	char[][] map;
 	int[][] copy1;
 	int[][] copy2;
+	int[][] moves = {{0, 1}, {0, -1}, {-1, 0}, {0, 1}};
 	
 	// Problem 7: Cow Travelling
         
@@ -88,16 +91,19 @@ public class USACO {
 	T = scan.nextInt(); // steps
 	
 	// sets up board
+	map = new char[N][M];
 	copy1 = new int[N][M];
 	copy2 = new int[N][M];
 	for (int r = 0; r < N; r ++) {
 	    String line = scan.next();
 	    for (int c = 0; c < M; c ++) {
+		map[r][c] = line.charAt(c);
+		/*
 		if (line.charAt(c) == '*') {
 		    copy1[r][c] = -1;
 		    copy2[r][c] = -1;
 		}
-		
+		*/
 	    }
 	}
 	
@@ -106,14 +112,10 @@ public class USACO {
 	R2 = scan.nextInt() - 1;
 	C2 = scan.nextInt() - 1;
 	
-	
-	copy2[R1][C2] = 1;
+	copy1[R1][C2] = 1;
+	//copy2[R1][C2] = 1;
+
 	while (T > 0) {
-	    for (int r = 0; r < N; r ++) {
-		for (int c = 0; c < M; c ++) {
-		    copy1[r][c] = copy2[r][c];
-		}
-	    }
 	    
 	    for (int r = 0; r < N; r ++){
 		for (int c = 0; c < M; c ++) {
@@ -140,7 +142,8 @@ public class USACO {
 	    }
 	    T --;
 	}
-	//System.out.println(toString(copy2));
+	
+	System.out.println(toString(copy2));
 	return copy2[R2][C2];	
     }
 
@@ -156,11 +159,12 @@ public class USACO {
     }
     
     public static void main(String[] args) throws FileNotFoundException {
-	for (int i = 1; i < 10; i ++) {
-	    System.out.println(bronze("makelake." + i + ".in"));
-	    //System.out.println(silver("ctravel." + i + ".in"));
-	}
+	//for (int i = 1; i < 10; i ++) {
+	    //System.out.println(bronze("makelake." + i + ".in"));
+	// System.out.println(silver("ctravel." + i + ".in"));
+	//	}
 	//System.out.println(silver("ctravel.1.in"));
+	System.out.println(bronze("makelake.2.in"));
     }
 }
 
