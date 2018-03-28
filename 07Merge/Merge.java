@@ -105,8 +105,8 @@ public class Merge {
 	int[] data1 = {1, 5, 7, 2, 76, 213, 876, 32, 2, 76, 54, 303, 4534, 2435, 5453};
 	int[] data2 = {89, 65, 54, 34, 32, 23, 12, 1};
 	//Merge.insertionSort(data1, 0, data1.length - 1);
-	Merge.mergesort(data2);
-	System.out.println(Arrays.toString(data2));
+	Merge.mergesort(data1);
+	System.out.println(Arrays.toString(data1));
     }
     
 }
