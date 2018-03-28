@@ -37,32 +37,54 @@ public class MyLinkedList implements Iterable<Integer> {
     }
     
     ///////////////////////////////////////////////////////////////////////////
-    public Iterator<Integer> iterator() {
-	
-    }
-
-
     private Node first, last;
     private int length;
 
-    public void add(int index, int value) {
+
+    public MyLinkedList() {
+	length = 0;
+    }
+    /*
+    public Iterator<Integer> iterator() {
 	
+    }
+    */
+    public void add(int value) {
+	length ++;
+	
+    }
+    
+    public void add(int index, int value) {
+	length ++;
     }
 
     public void remove(int index) {
-	
+	length --;
     }
 
     public String toString() {
-	return "";
+        String ans = "[";
+	for (int i = 0; i < length; i ++) {
+	    if () {  
+		
+	    } else {
+		//node get value
+	    }
+	}
+	return ans;
     }
 
-    public int get() {
+    public int get(int index) {
+	node = first;
+	while (node != null) {
+	    //do stuff with value_of_node
+	    node = next_node;
+	}
 	return 0;
     }
-
-    public void set(int index, int value) {
-
+    
+    public void set(int index, int newValue) {
+	
     }
 
     public int size() {
