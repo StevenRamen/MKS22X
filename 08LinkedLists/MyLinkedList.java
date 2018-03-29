@@ -1,6 +1,4 @@
-import java.util.*;
-
-public class MyLinkedList implements Iterable<Integer> {
+public class MyLinkedList {
 
     private class Node {
 	
@@ -38,56 +36,61 @@ public class MyLinkedList implements Iterable<Integer> {
     
     ///////////////////////////////////////////////////////////////////////////
     private Node first, last;
-    private int length;
+    private int size;
 
 
     public MyLinkedList() {
-	length = 0;
-    }
-    /*
-    public Iterator<Integer> iterator() {
-	
-    }
-    */
-    public void add(int value) {
-	length ++;
-	
-    }
-    
-    public void add(int index, int value) {
-	length ++;
-    }
-
-    public void remove(int index) {
-	length --;
+	size = 0;
     }
 
     public String toString() {
+	
         String ans = "[";
-	for (int i = 0; i < length; i ++) {
-	    if () {  
-		
+	for (int i = 0; i < size; i ++) {
+	    if (n.getNext().equals(null)) {  
+		return ans + "]";
 	    } else {
-		//node get value
+		n.getValue();//node get value
 	    }
 	}
-	return ans;
+	return ans + "]";
     }
 
-    public int get(int index) {
-	node = first;
-	while (node != null) {
-	    //do stuff with value_of_node
-	    node = next_node;
-	}
-	return 0;
-    }
-    
-    public void set(int index, int newValue) {
+    public void clear() {
 	
     }
 
     public int size() {
-	return length;
+	return size;
     }
+
+    public Integer get(int index) { // exceptions
+	Node node = first;
+	while (node != null) {
+	    //do stuff with value_of_node
+	    node = node.getNext();
+	}
+	return 0;
+    }
+
+    public Integer set(int index, Integer value) {
+	return value;
+    }
+
+    public int indexOf(Integer value) {
+	return 0;
+    }
+
+    public boolean add(Integer value) { // exceptions
+	return true;
+    }
+
+    public boolean remove(Integer value) { // exceptions
+	return true;
+    }
+
+    public boolean remove(int index) {
+	return true;
+    }
+    
 }
