@@ -70,7 +70,7 @@ public class Driver {
 	/*
 	 * Test your sort here!
 	 */
-	Quick.quickSort(start);
+	Quick.quicksort(start);
 	
 	long elapsedTime = System.currentTimeMillis() - startTime;
 	if(Arrays.equals(start,result)){

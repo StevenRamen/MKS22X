@@ -88,7 +88,7 @@ public class Quick {
 	return -1;
     }
 
-    public static void quickSort(int[] data) {
+    public static void quicksort(int[] data) {
 	quickSortH(data, 0, data.length - 1);
     }
 
@@ -117,7 +117,7 @@ public class Quick {
 	int[] data = {7, 2, 1, 8, 6, 3, 5, 4};
 	System.out.println(Arrays.toString(data));
 	//System.out.println(partition(data, 0, data.length - 1));
-        quickSort(data);
+        quicksort(data);
 	//System.out.println(quickselect(data, 8));
 	System.out.println(Arrays.toString(data));
 
