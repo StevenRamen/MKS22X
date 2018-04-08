@@ -54,14 +54,13 @@ public class MyLinkedList {
     public String toString() {
 	
         String ans = "[";
-	for (int i = 0; i < size; i ++) {
-	    if (n.getNext().equals(null)) {  
-		return ans + "]";
-	    } else {
-		n.getValue();//node get value
-	    }
+	Node current = start;
+	while (current.getNext() != null) {
+	    ans += current.toString() + ", ";
+	    current = current.getNext();
 	}
-	return ans + "]";
+	ans += current.toString() + "]";
+	return ans;
     }
 
     public void clear() {
@@ -75,18 +74,31 @@ public class MyLinkedList {
     }
 
     public Integer get(int index) { // exceptions
-	if (!(index < 0 || index > size)) {
+	if (index < 0 || index > size) {
+	    throw new IndexOutOfBoundsException();
+	} else {
 	    Node current = start;
 	    while (index > 0) {
 		current = current.getNext();
 		index --;
 	    }
-	    return current;
+	    return current.getValue();
 	}
     }
 
     public Integer set(int index, Integer value) {
-	return value;
+	if (index < 0 || index > size) {
+	    throw new IndexOutOfBoundsException();
+	} else {
+	    Node current = start;
+	    while (index > 0) {
+		current = current.getNext();
+		index --;
+	    }
+	}
+	int n = current.getValue();
+	current.setValue(value);
+	return current.getValue();
     }
 
     public int indexOf(Integer value) {
@@ -100,7 +112,7 @@ public class MyLinkedList {
 	    current = current.getNext();
 	}
 	
-	return 0;
+	return -1;
     }
 
     public boolean add(Integer value) { // exceptions
@@ -119,8 +131,11 @@ public class MyLinkedList {
     }
 
     public boolean remove(Integer value) { // exceptions
-	if (size == 1) {
-	    
+	int index = indexOf(value);
+	if (index == -1) {
+	    return false;
+	} else if () {
+	
 	}
 	return true;
     }
