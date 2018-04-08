@@ -2,8 +2,14 @@ public class MyLinkedList {
 
     private class Node {
 	
-	private Node next, prev;
+	private Node prev, next;
 	private int data;
+
+	public Node(int data) {
+	    setValue(data);
+	    prev = null;
+	    next = null;
+	}
 	
 	public Node getNext() {
 	    return next;
@@ -30,17 +36,19 @@ public class MyLinkedList {
 	}
 	
 	private String toString() {
-	    return "";
+	    return String.valueof(data);
 	}
     }
     
     ///////////////////////////////////////////////////////////////////////////
-    private Node first, last;
+    private Node start, end;
     private int size;
 
 
     public MyLinkedList() {
 	size = 0;
+	start = null;
+	end = null;
     }
 
     public String toString() {
@@ -57,7 +65,9 @@ public class MyLinkedList {
     }
 
     public void clear() {
-	
+	size = 0;
+	start = null;
+	end = null;
     }
 
     public int size() {
@@ -65,12 +75,14 @@ public class MyLinkedList {
     }
 
     public Integer get(int index) { // exceptions
-	Node node = first;
-	while (node != null) {
-	    //do stuff with value_of_node
-	    node = node.getNext();
+	if (!(index < 0 || index > size)) {
+	    Node current = start;
+	    while (index > 0) {
+		current = current.getNext();
+		index --;
+	    }
+	    return current;
 	}
-	return 0;
     }
 
     public Integer set(int index, Integer value) {
@@ -78,14 +90,38 @@ public class MyLinkedList {
     }
 
     public int indexOf(Integer value) {
+	int index = 0;
+	Node current = start;
+
+	while (current != null) {
+	    if (current.getValue() == value) {
+		return current;
+	    }
+	    current = current.getNext();
+	}
+	
 	return 0;
     }
 
     public boolean add(Integer value) { // exceptions
+	if (size == 0) {
+	    Node x = new Node(value);
+	    start = x;
+	    end = x;
+	} else {
+	    Node x = new Node(value);
+	    x.setPrev(end);
+	    end.setNext(x);
+	    end = x;
+	}
+	size ++;
 	return true;
     }
 
     public boolean remove(Integer value) { // exceptions
+	if (size == 1) {
+	    
+	}
 	return true;
     }
 
