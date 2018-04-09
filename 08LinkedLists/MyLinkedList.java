@@ -35,8 +35,8 @@ public class MyLinkedList {
 	    this.data = data;
 	}
 	
-	private String toString() {
-	    return String.valueof(data);
+	public String toString() {
+	    return "" + data;
 	}
     }
     
@@ -52,14 +52,19 @@ public class MyLinkedList {
     }
 
     public String toString() {
+	String ans = "[";
+	if (size == 0){
+	    return ans + "]";
+	}
 	
-        String ans = "[";
 	Node current = start;
-	while (current.getNext() != null) {
+	
+	while (current.getNext() != null){
 	    ans += current.toString() + ", ";
 	    current = current.getNext();
 	}
 	ans += current.toString() + "]";
+	
 	return ans;
     }
 
@@ -87,10 +92,10 @@ public class MyLinkedList {
     }
 
     public Integer set(int index, Integer value) {
+	Node current = start;
 	if (index < 0 || index > size) {
 	    throw new IndexOutOfBoundsException();
 	} else {
-	    Node current = start;
 	    while (index > 0) {
 		current = current.getNext();
 		index --;
@@ -107,9 +112,10 @@ public class MyLinkedList {
 
 	while (current != null) {
 	    if (current.getValue() == value) {
-		return current;
+		return index;
 	    }
 	    current = current.getNext();
+	    index ++;
 	}
 	
 	return -1;
@@ -131,17 +137,62 @@ public class MyLinkedList {
     }
 
     public boolean remove(Integer value) { // exceptions
-	int index = indexOf(value);
+        int index = indexOf(value);
 	if (index == -1) {
 	    return false;
-	} else if () {
-	
-	}
+	} else if (index == 0) {
+	    start = start.getNext();
+	    start.setPrev(null);
+	} else if (index == size() - 1) {
+	    end = end.getPrev();
+	    end.setNext(null);
+	} // need to do the hard part between 0 and end
+	size --;
 	return true;
     }
 
     public boolean remove(int index) {
+	if (index < 0 || index > size()) {
+	    throw new IndexOutOfBoundsException();
+	}
 	return true;
     }
-    
+
+    public static void main(String[] args) {
+	MyLinkedList a = new MyLinkedList();
+
+	System.out.println("Adding values");
+	System.out.println(a.toString()+ " Size = "+ a.size());
+	a.add(5);
+	System.out.println(a.toString()+ " Size = "+ a.size());
+	a.add(4);
+	System.out.println(a.toString()+ " Size = "+ a.size());
+	a.add(6);
+	System.out.println(a.toString()+ " Size = "+ a.size());
+	a.add(8);
+	System.out.println(a.toString()+ " Size = "+ a.size());
+	
+	System.out.println("indexOf testing");
+	System.out.println(a.indexOf(8));
+	System.out.println(a.indexOf(6));
+	System.out.println(a.indexOf(4));
+	System.out.println(a.indexOf(5));
+
+	System.out.println("get testing");
+	for (int i = 0; i < a.size(); i ++) {
+	    System.out.println(a.get(i));
+	}
+
+	System.out.println("set testing");
+	for (int i = 0; i < a.size(); i ++) {
+	    a.set(i, i);
+	    System.out.println(a.toString());
+	}
+
+	
+
+	System.out.println("clear");
+	a.clear();
+	System.out.println(a.toString()+ " Size = "+ a.size());
+    }
 }
