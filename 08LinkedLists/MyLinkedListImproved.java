@@ -1,4 +1,4 @@
-public class MyLinkedListImproved<T> {
+public class MyLinkedListImproved<T> implements Iterable<T>{
 
     private class Node {
 	
@@ -157,6 +157,8 @@ public class MyLinkedListImproved<T> {
 	}
 	return true;
     }
+
+    
 
     /*public static void main(String[] args) {
 	MyLinkedList a = new MyLinkedList();
