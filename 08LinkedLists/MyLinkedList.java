@@ -173,7 +173,13 @@ public class MyLinkedList {
 	    end = end.getPrev();
 	    end.setNext(null);
 	} else { // add middle part
-	    
+	    Node current = start;
+	    while (index < 0) {
+		current = current.getNext();
+		index --;
+	    }
+	    current = current.getNext();
+	    // add more
 	}
 	size --;
 	return true;
