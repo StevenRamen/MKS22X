@@ -1,5 +1,5 @@
 public class MyLinkedListImproved<T> implements Iterable<T>{
-
+    // class fru <T extends Comparable<T>>
     private class Node {
 	
 	private Node prev, next;

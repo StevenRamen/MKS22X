@@ -100,10 +100,10 @@ public class MyLinkedList {
 		current = current.getNext();
 		index --;
 	    }
+	    int n = current.getValue();
+	    current.setValue(value);
+	    return current.getValue();
 	}
-	int n = current.getValue();
-	current.setValue(value);
-	return current.getValue();
     }
 
     public int indexOf(Integer value) {
@@ -136,25 +136,46 @@ public class MyLinkedList {
 	return true;
     }
 
+    public boolean add(int index, Integer value) {
+	if (index < 0 || index > size()) {
+	    throw new IndexOutOfBoundsException();
+	} else if (index == 0) {
+	    Node x = new Node(value);
+	    start.setNext(start);
+	    start.setValue(value);
+	} else if (index == size() - 1) {
+	    Node x = new Node(value);
+	    x.setPrev(end);
+	    end.setNext(x);
+	    end = x;
+	} else { // need to do middle part
+	    
+	}
+	size ++;
+	return true;
+    }
+
     public boolean remove(Integer value) { // exceptions
         int index = indexOf(value);
-	if (index == -1) {
-	    return false;
+        if (index >= 0) {
+	    return remove(index);
+	}
+	return false;
+    }
+
+    public boolean remove(int index) {
+	if (index < 0 || index > size()) {
+	    throw new IndexOutOfBoundsException();
 	} else if (index == 0) {
 	    start = start.getNext();
 	    start.setPrev(null);
 	} else if (index == size() - 1) {
 	    end = end.getPrev();
 	    end.setNext(null);
-	} // need to do the hard part between 0 and end
-	size --;
-	return true;
-    }
-
-    public boolean remove(int index) {
-	if (index < 0 || index > size()) {
-	    throw new IndexOutOfBoundsException();
+	} else { // add middle part
+	    
 	}
+	size --;
 	return true;
     }
 
