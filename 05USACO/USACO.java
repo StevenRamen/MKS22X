@@ -143,7 +143,7 @@ public class USACO {
 	    T --;
 	}
 	
-	System.out.println(toString(copy2));
+	//System.out.println(toString(copy2));
 	return copy2[R2][C2];	
     }
 
