@@ -1,11 +1,13 @@
-public class MyLinkedListImproved<T> implements Iterable<T>{
-    // class fru <T extends Comparable<T>>
+// class fru <T extends Comparable<T>>
+
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T> {
+
     private class Node {
 	
 	private Node prev, next;
-	private T data;
+	private int data;
 
-	public Node(T data) {
+	public Node(int data) {
 	    setValue(data);
 	    prev = null;
 	    next = null;
@@ -19,7 +21,7 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	    return prev;
 	}
 	
-	public T getValue() {
+	public int getValue() {
 	    return data;
 	}
 	
@@ -31,7 +33,7 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	    this.prev = prev;
 	}
 	
-	public void setValue(T data) {
+	public void setValue(int data) {
 	    this.data = data;
 	}
 	
@@ -45,7 +47,7 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
     private int size;
 
 
-    public MyLinkedListImproved() {
+    public MyLinkedList() {
 	size = 0;
 	start = null;
 	end = null;
@@ -79,31 +81,20 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
     }
 
     public T get(int index) { // exceptions
-	if (index < 0 || index > size) {
+	if (index < 0 || index > size() - 1) {
 	    throw new IndexOutOfBoundsException();
-	} else {
-	    Node current = start;
-	    while (index > 0) {
-		current = current.getNext();
-		index --;
-	    }
-	    return current.getValue();
 	}
+	return getNode(index).getValue();
     }
 
     public T set(int index, T value) {
 	Node current = start;
-	if (index < 0 || index > size) {
+	if (index < 0 || index > size() - 1) {
 	    throw new IndexOutOfBoundsException();
-	} else {
-	    while (index > 0) {
-		current = current.getNext();
-		index --;
-	    }
 	}
-	T n = current.getValue();
-	current.setValue(value);
-	return current.getValue();
+	   
+	getNode(index).setValue(value);
+	return value;
     }
 
     public int indexOf(T value) {
@@ -136,65 +127,82 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	return true;
     }
 
-    public boolean remove(T value) { // exceptions
-        int index = indexOf(value);
-	if (index == -1) {
-	    return false;
-	} else if (index == 0) {
-	    start = start.getNext();
-	    start.setPrev(null);
-	} else if (index == size() - 1) {
-	    end = end.getPrev();
-	    end.setNext(null);
-	} // need to do the hard part between 0 and end
-	size --;
-	return true;
-    }
-
-    public boolean remove(int index) {
+    public void add(int index, T value) {
 	if (index < 0 || index > size()) {
 	    throw new IndexOutOfBoundsException();
 	}
-	return true;
+	Node add = new Node(value);
+		    
+	if (size() == 0) {
+	    start = add;
+	    end = add;
+	    size ++;
+	    return;
+	} else if (index == 0) {
+	    start.setPrev(add);
+	    add.setNext(start);
+	    start = add;
+	    size ++;
+	    return;
+	} else if (index == size()) {
+	    add(value);
+	    return;
+	}
+	
+        getNode(index).setPrev(add);
+
+	add.setPrev(getNode(index - 1));
+	add.setNext(getNode(index));
+
+	getNode(index).setPrev(add);
+	getNode(index - 1).setNext(add);
+
+	size ++;
+    }
+	
+    public Node getNode(int index) {
+	Node current = start;
+	for (int i = 0; i < size(); i ++) {
+	    if (i == index) {
+		return current;
+	    }
+	    current = current.getNext();
+	}
+	return null;
+    }
+    
+    public boolean remove(T value) { // exceptions
+        int index = indexOf(value);
+        if (index >= 0) {
+	    remove(index);
+	    return true;
+	}
+	return false;
     }
 
+    public T remove(int index) {
+	Node node = null;
+	if (index < 0 || index > size()) {
+	    throw new IndexOutOfBoundsException();
+	}
+        
+	if (index == 0) {
+	    node = start;
+	    start = start.getNext();
+	    start.setPrev(null);
+	    size --;
+	} else if (index == size() - 1) {
+	    node = end;
+	    end = end.getPrev();
+	    end.setNext(null);
+	    size --;
+	} else { // add middle part
+	    node = getNode(index);
+	    node.getPrev().setNext(node.getNext());
+	    node.getNext().setPrev(node.getPrev());
+	    size --;
+	}
+	return node.getValue();
+    }
     
-
-    /*public static void main(String[] args) {
-	MyLinkedList a = new MyLinkedList();
-
-	System.out.println("Adding values");
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	a.add(5);
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	a.add(4);
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	a.add(6);
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	a.add(8);
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	
-	System.out.println("indexOf testing");
-	System.out.println(a.indexOf(8));
-	System.out.println(a.indexOf(6));
-	System.out.println(a.indexOf(4));
-	System.out.println(a.indexOf(5));
-
-	System.out.println("get testing");
-	for (int i = 0; i < a.size(); i ++) {
-	    System.out.println(a.get(i));
-	}
-
-	System.out.println("set testing");
-	for (int i = 0; i < a.size(); i ++) {
-	    a.set(i, i);
-	    System.out.println(a.toString());
-	}
-
-	
-
-	System.out.println("clear");
-	a.clear();
-	System.out.println(a.toString()+ " Size = "+ a.size());
-	}*/
 }
