@@ -47,7 +47,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     private int size;
 
 
-    public MyLinkedList() {
+    public MyLinkedListImproved() {
 	size = 0;
 	start = null;
 	end = null;
@@ -58,7 +58,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     private class ListIterator implements Iterator<T>{
-	private Node index;
+	private node index;
 
 	public ListIterator(Node first) {
 	    index = first;
@@ -69,7 +69,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public T next() {
-	    
+	    if (this.hasNext()) {
+		//middle part
+	    }
+	    throw new NoSuchElementException();
 	}
     }
     
