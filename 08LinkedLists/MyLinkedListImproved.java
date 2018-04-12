@@ -53,6 +53,27 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	end = null;
     }
 
+    public Iterator<T> iterator() {
+	return new ListIterator(this);
+    }
+
+    private class ListIterator implements Iterator<T>{
+	private Node index;
+
+	public ListIterator(Node first) {
+	    index = first;
+	}
+
+	public boolean hasNext() {
+	    return node != null;
+	}
+
+	public T next() {
+	    
+	}
+    }
+    
+    
     public String toString() {
 	String ans = "[";
 	if (size == 0){
