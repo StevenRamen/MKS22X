@@ -229,12 +229,28 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	return node.getValue();
     }
 
+    public int max() {
+	if (size() == 0) {
+	    return -1;
+	}
+	return 0;
+    }
+
+    public int min() {
+	if (size() == 0) {
+	    return -1;
+	}
+	return 0;
+    }
     
     public void extend(MyLinkedListImproved<T> other){
         //in O(1) runtime, move the elements from other onto the end of this
         //The size of other is reduced to 0
         //The size of this is now the combined sizes of both original lists
 
+        end.setNext(other.start);
+	other.start.setPrev(this.end);
+	other.clear();
 	
     }
 }
