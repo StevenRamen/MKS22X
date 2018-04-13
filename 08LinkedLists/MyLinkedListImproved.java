@@ -250,6 +250,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
         end.setNext(other.start);
 	other.start.setPrev(this.end);
+	size += other.size();
 	other.clear();
 	
     }
