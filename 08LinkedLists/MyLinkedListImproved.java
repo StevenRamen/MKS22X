@@ -271,7 +271,8 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         //The size of this is now the combined sizes of both original lists
 
         end.setNext(other.start);
-	other.start.setPrev(this.end);
+	other.start.setPrev(end);
+	end = other.end;
 	size += other.size();
 	other.clear();
 	
