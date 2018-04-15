@@ -69,8 +69,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public T next() {
-	    if (this.hasNext()) {
-		//middle part
+	    if (hasNext()) {
+	        T data = index.getValue();
+		index = index.getNext();
+		return data;
 	    }
 	    throw new NoSuchElementException();
 	}
@@ -233,14 +235,34 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	if (size() == 0) {
 	    return -1;
 	}
-	return 0;
+	T value = start.getValue();
+	int i = 0;
+	int maxI = 0;
+	for (T check: this) {
+	    if (check.compareTo(value) > 0) {
+		value = check;
+		maxI = i;
+	    }
+	    i ++;
+	}
+	return maxI;
     }
 
     public int min() {
 	if (size() == 0) {
 	    return -1;
 	}
-	return 0;
+	T value = start.getValue();
+	int i = 0;
+	int minI = 0;
+	for (T check: this) {
+	    if (check.compareTo(value) < 0) {
+		value = check;
+		minI = i;
+	    }
+	    i ++;
+	}
+	return minI;
     }
     
     public void extend(MyLinkedListImproved<T> other){
