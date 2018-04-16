@@ -299,5 +299,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	a.extend(b);
 	System.out.println(a);
 	System.out.println(b);
+	System.out.println(a.size());
+	System.out.println(b.size());
     }
 }
