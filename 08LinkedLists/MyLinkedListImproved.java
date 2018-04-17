@@ -170,17 +170,17 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	} else if (index == size()) {
 	    add(value);
 	    return;
+	} else {
+	    getNode(index).setPrev(add);
+	    
+	    add.setPrev(getNode(index - 1));
+	    add.setNext(getNode(index));
+	    
+	    getNode(index).setPrev(add);
+	    getNode(index - 1).setNext(add);
+	    
+	    size ++;
 	}
-	
-        getNode(index).setPrev(add);
-
-	add.setPrev(getNode(index - 1));
-	add.setNext(getNode(index));
-
-	getNode(index).setPrev(add);
-	getNode(index - 1).setNext(add);
-
-	size ++;
     }
 	
     public Node getNode(int index) {
@@ -270,15 +270,20 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         //in O(1) runtime, move the elements from other onto the end of this
         //The size of other is reduced to 0
         //The size of this is now the combined sizes of both original lists
-
-        end.setNext(other.start);
-	other.start.setPrev(end);
-	end = other.end;
-	size += other.size();
-	other.clear();
-	
+	if (size() == 0) {
+	    start = other.start;
+	    end = other.end;
+	    size = other.size();
+	    other.clear();
+	} else if (other.size() > 0) {
+	    end.setNext(other.start);
+	    other.start.setPrev(end);
+	    end = other.end;
+	    size += other.size();
+	    other.clear();
+	}
     }
-
+    /*
     public static void main(String[] args) {
 	MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
 	MyLinkedListImproved<Integer> b = new MyLinkedListImproved<>();
@@ -302,4 +307,5 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	System.out.println(a.size());
 	System.out.println(b.size());
     }
+    */
 }
