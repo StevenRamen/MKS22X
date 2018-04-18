@@ -2,12 +2,19 @@ import java.util.Arrays;
 
 public class postfix {
 
-    public static double String[] eval(String input) {
-	String[] splited = input.split(" ");
+    public static double eval(String input) {
+	Stack x = new Stack();
 
-	for (int i = 0; i < splited.length; i ++) {
-	    
+	String[] tokens = input.split(" ");
+
+	for (int i = 0; i < tokens.length; i++) {
+	    // if # or operations
+	         // number --> check for operation
+	    // do math stuff
 	}
+
+	//return ans
+	return 0;
     }
 
     public static void main(String[] args) {
