@@ -1,25 +1,24 @@
-import java.util.*;
+import java.util.Arrays;
 
-public class Stack {
+public class Calculator {
 
-    private ArrayList<Double> data;
-    
-    public Stack() {
-	data = new ArrayList<Double>();
-    }
+    public static double eval(String input) {
+	Stack x = new Stack();
 
-    public void push(double value) {
-	data.add(value);
-    }
+	String[] tokens = input.split(" ");
 
-    public double pop() {
-	if (data.size() == 0) {
-	    throw new NoSuchElementException();
+	for (int i = 0; i < tokens.length; i++) {
+	    double num1 = Double.parseDouble
+	    // if # or operations
+	         // number --> check for operation
+	    // do math stuff
 	}
-	return data.remove(data.size() - 1);
+
+	//return ans
+	return 0;
     }
 
-    public double peek() {
-	return 0;
+    public static void main(String[] args) {
+	System.out.println(Arrays.toString(eval("123 534 +")));
     }
 }
