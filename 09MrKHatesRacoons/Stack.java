@@ -1,22 +1,22 @@
 import java.util.*;
 
-public class Stack<T> {
-    
-    private MyLinkedListImproved<T> data;
+public class Stack {
 
+    private ArrayList<double> data;
+    
     public Stack() {
-	data = new MyLinkedListImproved<T>();
+	data = new ArrayList<double>();
     }
 
     public void push(T value) {
-	data.add(0, value);
+	data.add(value);
     }
 
     public T pop() {
 	if (data.size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	return data.remove(0);
+	return data.remove(data.size() - 1);
     }
 
     public T peek() {
