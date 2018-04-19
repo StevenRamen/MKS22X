@@ -20,12 +20,9 @@ public class Stack {
     }
 
     public double peek() {
+	if (data.size() == 0) {
+	    throw new NoSuchElementException();
+	}
 	return data.get(data.size() - 1);
-    }
-
-    public static void main(String[] args) {
-	ArrayList<Double> data = {54, 545, 34, 434, 232, 32};
-
-	
     }
 }
