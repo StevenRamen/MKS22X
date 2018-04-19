@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MyDeque<E> {
 
     private E[] data;
@@ -5,16 +7,18 @@ public class MyDeque<E> {
     private int end;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public MyDeque() {
-	data = new E[10];
+	data = (E[])new Object[10];
 	size = 0;
     }
 
+    @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity) {
 	if (initialCapacity < 0) {
 	    throw new IllegalArgumentException();
 	}
-	data = new E[initialCapacity];
+	data = (E[])new Object[initialCapacity];
 	size = 0;
     }
 
@@ -74,6 +78,23 @@ public class MyDeque<E> {
 	return data[end];
     }
 
-    
+    @SuppressWarnings("unchecked")
+    public void resize() {
+	E[] temp = (E[])new Object[data.length * 2];
+
+	for (int i = 0; i < size(); i ++) {
+	    if (start + i < data.length) {
+		temp[start + i] = data[start + i];
+	    } else {
+		temp[start + i] = data[(start + size()) - data.length];
+	    }
+	}
+	
+	data = temp;
+    }
+
+    public static void main(String[] args) {
+	
+    }
 
 }
