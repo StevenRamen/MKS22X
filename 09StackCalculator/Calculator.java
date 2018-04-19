@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Calculator {
     
     // pre condition - valid string?
@@ -14,30 +12,44 @@ public class Calculator {
 	         // number --> check for operation
 	    // do math stuff
 	    String current = tokens[i];
+	    double num1;
+	    double num2;
 	    //operators
 	    if (current.equals("+")) {
-		double num1 = S.pop();
-		double num2 = S.pop();
+	        num1 = x.pop();
+		num2 = x.pop();
 
-		S.push(first + second);
+		x.push(num1 + num2);
 	    } else if (current.equals("-")) {
-		
+		num1 = x.pop();
+		num2 = x.pop();
+
+		x.push(num1 - num2);
 	    } else if (current.equals("*")) {
-		
+		num1 = x.pop();
+		num2 = x.pop();
+
+		x.push(num1 * num2);
 	    } else if (current.equals("/")) {
-		
+		num1 = x.pop();
+		num2 = x.pop();
+
+		x.push(num1 / num2);
 	    } else if (current.equals("%")) {
-		
+		num1 = x.pop();
+		num2 = x.pop();
+
+		x.push(num1 % num2);
 	    } else {
-		S.push(Double.parseDouble(current)); // if it's a number
+		x.push(Double.parseDouble(current));
 	    }
 	}
+	return x.peek();
 
 	//return ans
-	return 0;
     }
 
     public static void main(String[] args) {
-	System.out.println(Arrays.toString(eval("123 534 +")));
+	System.out.println(Calculator.eval("1 2 +"));
     }
 }
