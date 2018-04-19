@@ -31,6 +31,17 @@ public class MyDeque<E> {
 	if (element == null) {
 	    throw new NullPointerException();
 	}
+	if (start == 0) {
+	    if (end == data.length - 1) {
+		resize();
+		start --;
+		data[start] = element;
+	    }
+	}
+	if (size() == data.length) {
+	    resize();
+	    
+	}
 	
     }
 
