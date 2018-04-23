@@ -31,25 +31,46 @@ public class MyDeque<E> {
 	if (element == null) {
 	    throw new NullPointerException();
 	}
-	if (start == 0) {
-	    if (end == data.length - 1) {
-		resize();
-		start --;
-		data[start] = element;
-	    }
+	if (size() == data.length - 1) {
+	    resize();  
 	}
-	if (size() == data.length) {
-	    resize();
-	    
-	}
+
 	
+	if (size() == 0) {
+	    data[0] = element;
+	    start = 0;
+	    end = 0;
+	} else if (start == 0) { // wrap around
+	    start = data.length - 1;
+	    data[start] = element;
+	} else { // normal
+	    start --;
+	    data[start] = element;
+	}
+        size ++;
     }
 
     public void addLast(E element) {
 	if (element == null) {
 	    throw new NullPointerException();
 	}
+	if (size() == data.length - 1) {
+	    resize();  
+	}
+
 	
+	if (size() == 0) {
+	    data[0] = element;
+	    start = 0;
+	    end = 0;
+	} else if (end == data.length - 1) { // wrap around
+	    end = 0;
+	    data[end] = element;
+	} else { // normal
+	    end ++;
+	    data[end] = element;
+	}
+        size ++;
     }
 
     //NoSuchElementException
@@ -69,8 +90,13 @@ public class MyDeque<E> {
 	    throw new NoSuchElementException();
 	}
 	E element = data[end];
-	data[end] = null;
-	end --;
+	if (end - 1 >= 0) {
+	    data[end] = null;
+	    end --;
+	} else {
+	    data[end] = null;
+	    
+	}
 	return element;
     }
 
@@ -94,18 +120,65 @@ public class MyDeque<E> {
 	E[] temp = (E[])new Object[data.length * 2];
 
 	for (int i = 0; i < size(); i ++) {
-	    if (start + i < data.length) {
-		temp[start + i] = data[start + i];
-	    } else {
-		temp[start + i] = data[(start + size()) - data.length];
-	    }
+	    temp[i] = data[(start + i) % data.length];
 	}
 	
 	data = temp;
-    }
-
-    public static void main(String[] args) {
+	start = 0;
+	end = size() - 1;
 	
     }
+    
+    public String toString(){
+	String ans = "[";
+	if(start < end){
+	    for (int i = start; i <= end; i++){
+		ans += data[i] + ", ";
+	    }
+	}
+	else{
+	    for(int i = start; i < data.length; i++){
+		ans += data[i] + ", ";
+	    }
+	    for(int i = 0; i <= end; i++){
+		ans += data[i] + ", ";
+	    }
+	}
+	ans = ans.substring(0, ans.length() - 2) + "]";
+	return ans;
+    }
+    
+    public static void main(String[] args) {
+	MyDeque<String> a = new MyDeque<>();
 
+	System.out.println(a.toString());
+
+        a.addFirst("foo");
+        a.addFirst("do");
+	a.addLast("end");
+	a.addLast("first");
+
+	System.out.println(a.toString());
+	
+	System.out.println(a.getFirst());
+	System.out.println(a.getLast());
+
+	a.addLast("def");
+	a.addLast("gab");
+	a.addLast("leo");
+	a.addLast("fas");
+	a.addLast("der");
+	System.out.println(a.toString());
+	//should reisze
+	a.addLast("edd");
+
+	System.out.println(a.toString());
+
+	System.out.println(a.removeLast());
+	System.out.println(a.toString());
+
+	System.out.println(a.removeFirst());
+	System.out.println(a.toString());
+    }
+    
 }
