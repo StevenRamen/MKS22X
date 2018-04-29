@@ -33,17 +33,44 @@ public class MyHeap <T extends Comparable<T>> {
 
     public void pushUp(int n) {
         int parent = (n - 1) / 2;
-	if (n == 0){
-	    return;
-	}
 	if (max && data[parent].compareTo(data[n]) < 0 || !max && data[parent].compareTo(data[n]) > 0){
 	    swap(parent, n);
 	    pushUp(parent);
 	}
     }
     
-    public String remove() {
-	return "";
+    public T remove() {
+        T x = data[0];
+	swap(0 , size() - 1);
+	pushDown(0);
+	size --;
+	data[size()] = null;
+	return x;
+    }
+
+    public void pushDown(int n) {
+	int left = 2 * n + 1;
+	int right = 2 * n + 2;
+
+	if (max) {
+	    //System.out.println(data[left]);
+	    //System.out.println(data[n]);
+	    if (left < data.length && data[left].compareTo(data[n]) > 0) {
+		swap(left, n);
+		pushDown(left);
+	    } else if (right < data.length && data[right].compareTo(data[n]) < 0) {
+		swap(right, n);
+		pushDown(right);
+	    }
+	} else {
+	    if (left < data.length && data[left].compareTo(data[n]) < 0) {
+		swap(left, n);
+		pushDown(left);
+	    } else if (right < data.length && data[right].compareTo(data[n]) < 0) {
+		swap (right, n);
+		pushDown(right);
+	    }
+	}
     }
 
     public T peek() {
@@ -79,32 +106,24 @@ public class MyHeap <T extends Comparable<T>> {
     }
     
     public static void main(String[] args) {
-	MyHeap<Integer> a = new MyHeap<>();
-	/*Integer[] data = new Integer[10];
-	for (int i = 0; i < data.length; i ++) {
-	    data[i] = i;
-	}*/
+	// max
+        MyHeap<Integer> a = new MyHeap<>();
+	for (int i = 0; i < 10; i ++) {
+	    a.add((int) (Math.random() * (50 - 10)) + 10);
+	}
+	//System.out.println(a.toString());
+
+	//min
+	MyHeap<Integer> b = new MyHeap<>(false);
+	for (int i = 0; i < 10; i ++) {
+	    b.add((int) (Math.random() * (50 - 10)) + 10);
+	}
+	//System.out.println(b.toString());
+
+	// remove
+	System.out.println(a.toString());
 	System.out.println(a.size());
-	a.add(0);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(1);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(3);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(4);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(2);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(5);
-	System.out.println(a.size());
-        System.out.println(a.toString());
-	a.add(11);
-	System.out.println(a.size());
-        System.out.println(a.toString());
+	System.out.println(a.remove());
+	System.out.println(a.toString());
     }
 }
