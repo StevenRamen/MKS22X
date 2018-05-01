@@ -41,13 +41,26 @@ public class MyHeap <T extends Comparable<T>> {
     
     public T remove() {
         T x = data[0];
-	swap(0 , size() - 1);
+	swap(0, size() - 1);
 	pushDown(0);
 	size --;
 	data[size()] = null;
 	return x;
     }
 
+    public T remove(int y) {
+	T x = data[0];
+	swap(0, size() - 1);
+	pushDown(0, y);
+	size --;
+	data[size()] = null;
+	return x;
+    }
+
+    public void pushDown(int n, int y) {
+	
+    }
+    
     public void pushDown(int n) {
 	int left = 2 * n + 1;
 	int right = 2 * n + 2;
@@ -104,8 +117,17 @@ public class MyHeap <T extends Comparable<T>> {
 	}
 	return ans + ")";
     }
+
+    public void Heap(T[] data) {
+	for (int i = data.length - 1; i >= 0; i --) {
+	    pushDown(i);
+	}
+	size = data.length;
+	this.data = data;
+    }
     
     public static void main(String[] args) {
+	/*
 	// max
         MyHeap<Integer> a = new MyHeap<>();
 	for (int i = 0; i < 10; i ++) {
@@ -125,5 +147,8 @@ public class MyHeap <T extends Comparable<T>> {
 	System.out.println(a.size());
 	System.out.println(a.remove());
 	System.out.println(a.toString());
+	*/
+	
+	
     }
 }
