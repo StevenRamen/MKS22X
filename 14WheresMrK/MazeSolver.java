@@ -20,6 +20,12 @@ public class MazeSolver{
 	//  check if any locations are the end, if you found the end just return true!
 	//  add all the locations to the frontier
 	//when there are no more values in the frontier return false
+
+        while(frontier.hasNext()) {
+	    
+	    
+	}
+	
 	return false;
     }
     
