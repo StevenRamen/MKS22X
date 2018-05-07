@@ -51,26 +51,26 @@ public class MyHeap <T extends Comparable<T>> {
     public void pushDown(int n) {
 	int left = 2 * n + 1;
 	int right = 2 * n + 2;
-
 	if (max) {
 	    //System.out.println(data[left]);
 	    //System.out.println(data[n]);
-	    if (left < data.length && data[left].compareTo(data[n]) > 0) {
+	    if (/*left < data.length && */data[left].compareTo(data[n]) > 0) {
 		swap(left, n);
 		pushDown(left);
-	    } else if (right < data.length && data[right].compareTo(data[n]) < 0) {
+	    } else if (/*right < data.length && */data[right].compareTo(data[n]) > 0) {
 		swap(right, n);
 		pushDown(right);
 	    }
 	} else {
-	    if (left < data.length && data[left].compareTo(data[n]) < 0) {
+	    if (/*left < data.length && */data[left].compareTo(data[n]) < 0) {
 		swap(left, n);
 		pushDown(left);
-	    } else if (right < data.length && data[right].compareTo(data[n]) < 0) {
+	    } else if (/*right < data.length && */data[right].compareTo(data[n]) < 0) {
 		swap (right, n);
 		pushDown(right);
 	    }
 	}
+	
     }
 
     public T peek() {

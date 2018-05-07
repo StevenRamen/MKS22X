@@ -73,28 +73,20 @@ public class RunningMedian {
     public static void main(String[] args){
 	RunningMedian test = new RunningMedian();
 	//System.out.println(test.getMedian());
-	test.add(1.0);
+	test.add(2.0);
 	System.out.println(test.getMedian());
 	
-	test.add(3.0);
+	test.add(4.0);
 	System.out.println(test.getMedian());
 	
-	test.add(5.0);
+	test.add(6.0);
 	System.out.println(test.getMedian());
 	
-	test.add(9.0);
+	test.add(8.0);
 	System.out.println(test.getMedian());
 	
 	System.out.println(test.size());
-	
-	/*
-	RunningMedian x = new RunningMedian();
-	x.add(10.0);
-	x.add(2.0);
-	x.add(10.0);
-	x.add(7.0);
-	System.out.println(x.getMedian());
-	*/
+
     }
     
 }
