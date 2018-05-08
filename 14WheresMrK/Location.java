@@ -16,7 +16,4 @@ public class Location {
 	return y;
     }
 
-    public int distanceToStart() {
-	return 0;
-    }
 }

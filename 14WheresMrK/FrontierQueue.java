@@ -13,7 +13,7 @@ public class FrontierQueue implements Frontier {
     }
 
     public boolean hasNext() {
-	return true;
+	return locations.peek() != null;
     }
     
 }

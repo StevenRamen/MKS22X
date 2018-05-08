@@ -13,7 +13,7 @@ public class FrontierStack implements Frontier {
     }
 
     public boolean hasNext() {
-	return true;
+	return locations.size() != 0;
     }
     
 }
