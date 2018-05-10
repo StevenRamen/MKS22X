@@ -17,7 +17,7 @@ public class Maze{
       YOU MUST COMPLETE THIS METHOD!!!
     */
     public Location[] getNeighbors(Location L){
-        Location[] neighbors = new Location[4];
+	Location[] neighbors = new Location[4];
 	
 	if (n.getX() + 1 < maze.length && maze[n.getX() + 1][n.getY()] == ' ' || maze[n.getX() + 1][n.getY()] == 'E') {
 	    neighbors[0] = new Location(n.getX() + 1, n.getY(), n);
@@ -25,10 +25,10 @@ public class Maze{
 	if (n.getX() - 1 >= 0 && maze[n.getX() - 1][n.getY()] == ' ' || maze[n.getX() - 1][n.getY()] == 'E') {
 	    neighbors[1] = new Location(n.getX() - 1, n.getY(), n);
 	}
-	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[getX()][n.getY() + 1] == 'E') {
+	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[n.getX()][n.getY() + 1] == ' E') {
 	    neighbors[2] = new Location(n.getX(), n.getY() + 1, n);
 	}
-	if (n.getY() - 1 >= 0 && maze[n.getX()][n.getY() - 1] == ' ' || maze[getX()) {
+	if (n.getY() - 1 >= 0 && maze[n.getX()][n.getY() - 1] == ' ' || maze[n.getX()][n.getY() - 1] == 'E') {
 	    neighbors[3] = new Location(n.getX(), n.getY() - 1, n);
 	}
 	
@@ -90,7 +90,7 @@ public class Maze{
 			endc=c;
 		    }else{
 			System.out.println("Multiple 'E' found!");
-            System.exit(0);
+			System.exit(0);
 		    }
 		}
 	    }
@@ -136,11 +136,11 @@ public class Maze{
 	    if( col == maxc-1 ){
 		ans += "\n";
 	    }
-	    
 	}
 	return ans + "\n";
     }
-    
+
+>>>>>>> b5a57adb538e0295886181a16e55afffda2f0d44
     public char get(int row,int col){
 	return maze[row][col];
     }
@@ -170,7 +170,7 @@ public class Maze{
 		}else{
 		    line+=color(37,40)+c;
 		}
-		
+
 	    }
 	    ans += line+color(37,40)+"\n";
 	}

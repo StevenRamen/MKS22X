@@ -1,9 +1,11 @@
 public class MazeSolver{
     private Maze maze;
     private Frontier frontier;
+    private boolean animate;
     
     public MazeSolver(String mazeText){
-	
+	maze = new Maze(mazeText);
+	animate = true;
     }
     
     //Default to BFS
@@ -21,8 +23,28 @@ public class MazeSolver{
 	//  add all the locations to the frontier
 	//when there are no more values in the frontier return false
 
+	if (mode == 0) {
+	    frontier = new FrontierQueue();
+	    frontier.add(maze.getStart());
+	}
+	if (mode == 1) {
+	    frontier = new FrontierStack();
+	    frontier.add(maze.getStart());
+	}
+	// Priority Queue
+	/*if (mode == 2) {
+
+	}
+	*/
+
         while(frontier.hasNext()) {
 	    
+	    if (animate) {
+		clearTerminal();
+		System.out.println(this);
+		wait(50);
+	    }
+	    Location next = frontier.next();
 	    
 	}
 	
