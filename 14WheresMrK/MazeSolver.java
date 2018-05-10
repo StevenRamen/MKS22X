@@ -45,6 +45,11 @@ public class MazeSolver{
 		wait(50);
 	    }
 	    Location next = frontier.next();
+	    getNeighbors(next);
+
+	    for (int i = 0; i < 4; i ++) {
+		if (getNeighbors[i] ;
+		    }
 	    
 	}
 	
