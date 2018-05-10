@@ -16,7 +16,7 @@ public class Maze{
       YOU MUST COMPLETE THIS METHOD!!!
       YOU MUST COMPLETE THIS METHOD!!!
     */
-    public Location[] getNeighbors(Location L){
+    public Location[] getNeighbors(Location n){
 	Location[] neighbors = new Location[4];
 	
 	if (n.getX() + 1 < maze.length && maze[n.getX() + 1][n.getY()] == ' ' || maze[n.getX() + 1][n.getY()] == 'E') {
@@ -25,7 +25,7 @@ public class Maze{
 	if (n.getX() - 1 >= 0 && maze[n.getX() - 1][n.getY()] == ' ' || maze[n.getX() - 1][n.getY()] == 'E') {
 	    neighbors[1] = new Location(n.getX() - 1, n.getY(), n);
 	}
-	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[n.getX()][n.getY() + 1] == ' E') {
+	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[n.getX()][n.getY() + 1] == 'E') {
 	    neighbors[2] = new Location(n.getX(), n.getY() + 1, n);
 	}
 	if (n.getY() - 1 >= 0 && maze[n.getX()][n.getY() - 1] == ' ' || maze[n.getX()][n.getY() - 1] == 'E') {
@@ -140,7 +140,6 @@ public class Maze{
 	return ans + "\n";
     }
 
->>>>>>> b5a57adb538e0295886181a16e55afffda2f0d44
     public char get(int row,int col){
 	return maze[row][col];
     }

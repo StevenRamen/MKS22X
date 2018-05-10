@@ -2,7 +2,7 @@ import java.util.*;
 
 public class FrontierQueue implements Frontier {
     
-    private Heap<Location> locations;
+    private MyHeap<Location> locations;
 
     public void add(Location loc) {
 	locations.push(loc);
