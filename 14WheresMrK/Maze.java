@@ -8,9 +8,66 @@ public class Maze{
     private static final String SHOW_CURSOR =  "\033[?25h";
     Location start,end;
     private char[][]maze;
+
     
+    public Maze (String mazeText) {
+	try {
+	    File text = new File(mazeText);
+	    Scanner inf = new Scanner(text);
+		    
+	    int row = 0;
+	    int col = 0;
+	    String ans = "";
+	    while (inf.hasNextLine()) {
+		String line = inf.nextLine();
+		row ++;
+		col = line.length();
+		ans += line;
+	    }
+	    int maxRows = row;
+	    int maxCols = col;
+	    
+	    // copies file into 2d array
+	    
+	    maze = new char[maxRows][maxCols];
+	    
+	    int i = 0;
+	    int numS = 0;
+	    int numE = 0;
+	    while (i < ans.length()) {
+		for (int r = 0; r < maxRows; r ++) {
+		    for (int c = 0; c < maxCols; c ++) {
+			maze[r][c] = ans.charAt(i);
+			if (maze[r][c] == 'S') {
+			    numS ++;
+			    start = new Location(r, c, null);
+			}
+			if (maze[r][c] == 'E') {
+			    numE ++;
+			    end = new Location(r, c, null);
+			}
+			i ++;
+		    }
+		}
+	    }
+	    
+	    start = new Location(start.getX(), start.getY(), null, distance(start));
+	    
+	    if (numS != 1) {
+		throw new IllegalStateException();
+	    }
+	    if (numE != 1) {
+		throw new IllegalStateException();
+	    }
+	    
+	    
+	} catch (FileNotFoundException e) {
+	    System.exit(0);
+	    System.out.println("File Not Found");
+	}
+    }
     
-    
+   
     /*
       YOU MUST COMPLETE THIS METHOD!!!
       YOU MUST COMPLETE THIS METHOD!!!
@@ -20,19 +77,31 @@ public class Maze{
 	Location[] neighbors = new Location[4];
 	
 	if (n.getX() + 1 < maze.length && maze[n.getX() + 1][n.getY()] == ' ' || maze[n.getX() + 1][n.getY()] == 'E') {
-	    neighbors[0] = new Location(n.getX() + 1, n.getY(), n);
+	    Location loc = new Location(n.getX() + 1, n.getY(), n);
+	    
+	    neighbors[0] = new Location(n.getX() + 1, n.getY(), n, distance(loc));
 	}
 	if (n.getX() - 1 >= 0 && maze[n.getX() - 1][n.getY()] == ' ' || maze[n.getX() - 1][n.getY()] == 'E') {
-	    neighbors[1] = new Location(n.getX() - 1, n.getY(), n);
+	    Location loc = new Location(n.getX() - 1, n.getY(), n);
+	    
+	    neighbors[1] = new Location(n.getX() - 1, n.getY(), n, distance(loc));
 	}
 	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[n.getX()][n.getY() + 1] == 'E') {
-	    neighbors[2] = new Location(n.getX(), n.getY() + 1, n);
+	    Location loc = new Location(n.getX(), n.getY() + 1, n);
+	    
+	    neighbors[2] = new Location(n.getX(), n.getY() + 1, n, distance(loc));
 	}
 	if (n.getY() - 1 >= 0 && maze[n.getX()][n.getY() - 1] == ' ' || maze[n.getX()][n.getY() - 1] == 'E') {
-	    neighbors[3] = new Location(n.getX(), n.getY() - 1, n);
+	    Location loc = new Location(n.getX(), n.getY() - 1, n);
+	    
+	    neighbors[3] = new Location(n.getX(), n.getY() - 1, n, distance(loc));
 	}
 	
 	return neighbors;
+    }
+
+    public void makePath(Location loc, char c) {
+	maze[loc.getX()][loc.getY()] = c;
     }
     
     public Location getStart(){
@@ -53,6 +122,7 @@ public class Maze{
     public void clearTerminal(){
 	System.out.println(CLEAR_SCREEN+"\033[1;1H");
     }
+    /*
     public Maze(String filename){
 	ArrayList<char[]> lines = new ArrayList<char[]>();
 	int startr=-1, startc=-1;
@@ -101,13 +171,17 @@ public class Maze{
 	    
 	}
 	
-	/*
+	
 	  THIS IS AN IMPORTANT PART BECAUSE YOU WILL NEED TO CHANGE IT LATER!
 	  The start/end Locations may need more information later when we add
 	  other kinds of frontiers!
-	*/
+	
 	end = new Location(endr,endc,null);
 	start = new Location(startr,startc,null);
+    }
+    */
+    public int distance(Location loc) {
+	return Math.abs(loc.getX() - getEnd().getX()) + Math.abs(loc.getY() - getEnd().getY());
     }
 
     public String toStringColor(){
@@ -175,4 +249,7 @@ public class Maze{
 	}
 	return ans;
     }
+
+   
+    
 }

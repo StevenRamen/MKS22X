@@ -2,18 +2,31 @@ import java.util.*;
 
 public class FrontierQueue implements Frontier {
     
-    private MyHeap<Location> locations;
+    private LinkedList<Location> locations;
+    private int size;
 
+    public FrontierQueue() {
+	locations = new LinkedList<>();
+	size = 0;
+    }
+
+    public int size() {
+	return size;
+    }
+    
     public void add(Location loc) {
-	locations.push(loc);
+	locations.add(loc);
+	size ++;
     }
     
     public Location next() {
-	return locations.pop();
+	size --;
+	return locations.remove();
     }
 
     public boolean hasNext() {
 	return locations.peek() != null;
     }
+	
     
 }
