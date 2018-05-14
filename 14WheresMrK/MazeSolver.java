@@ -27,57 +27,149 @@ public class MazeSolver{
 
 	if (mode == 0) {
 	    frontier = new FrontierQueue();
+	    Location current = maze.getStart();
+	    frontier.add(current);
+	
+	    while(frontier.hasNext()){
+	    
+		if(animate){
+		    clearTerminal();
+		    System.out.println(this);
+		    wait(100);
+		}
+	    
+		Location next = frontier.next();
+		maze.makePath(next, '.');
+	    
+		if(next.compareTo(maze.getEnd()) == 0){
+		
+		    while(next.getPrev()!=null){
+			maze.makePath(next, '@');
+			next = next.getPrev();
+		    }
+		
+		    maze.makePath(maze.getStart(),'S');
+		    maze.makePath(maze.getEnd(),'E');
+		
+		    return true;
+		}
+	    
+		if(hasNeighbors(next)){
+		
+		    for(int i = 0; i < 4; i++){
+		    
+			if(maze.getNeighbors(next)[i] != null){
+			    frontier.add(maze.getNeighbors(next)[i]);
+			    maze.makePath(maze.getNeighbors(next)[i], '?');
+			}
+		    
+		    }
+		
+		}
+	    
+	    }
+	    return false;
 	}
+
+	
 	if (mode == 1) {
 	    frontier = new FrontierStack();
+
+	    Location current = maze.getStart();
+	    frontier.add(current);
+	
+	    while(frontier.hasNext()){
+	    
+		if(animate){
+		    clearTerminal();
+		    System.out.println(this);
+		    wait(100);
+		}
+	    
+		Location next = frontier.next();
+		maze.makePath(next, '.');
+	    
+		if(next.compareTo(maze.getEnd()) == 0){
+		
+		    while(next.getPrev()!=null){
+			maze.makePath(next, '@');
+			next = next.getPrev();
+		    }
+		
+		    maze.makePath(maze.getStart(),'S');
+		    maze.makePath(maze.getEnd(),'E');
+		
+		    return true;
+		}
+	    
+		if(hasNeighbors(next)){
+		
+		    for(int i = 0; i < 4; i++){
+		    
+			if(maze.getNeighbors(next)[i] != null){
+			    frontier.add(maze.getNeighbors(next)[i]);
+			    maze.makePath(maze.getNeighbors(next)[i], '?');
+			}
+		    
+		    }
+		
+		}
+	    
+	    }
+	    return false;
 	}
 	// Priority Queue
 	if (mode == 2) {
 	    frontier = new FrontierPriorityQueue();
-	}
-	
 
-        Location current = maze.getStart();
-	frontier.add(current);
+	    Location current = maze.getStart();
+	    frontier.add(current);
 	
-        while(frontier.hasNext()){
+	    while(frontier.hasNext()){
 	    
-	    if(animate){
-		clearTerminal();
-		System.out.println(this);
-		wait(100);
-	    }
-	    
-	    Location next = frontier.next();
-	    maze.makePath(next, '.');
-	    
-	    if(next.compareTo(maze.getEnd()) == 0){
-		
-		while(next.getPrev()!=null){
-		    maze.makePath(next, '@');
-		    next = next.getPrev();
+		if(animate){
+		    clearTerminal();
+		    System.out.println(this);
+		    wait(100);
 		}
-		
-		maze.makePath(maze.getStart(),'S');
-		maze.makePath(maze.getEnd(),'E');
-		
-		return true;
-	    }
 	    
-	    if(hasNeighbors(next)){
+		Location next = frontier.next();
+		maze.makePath(next, '.');
+	    
+		if(next.compareTo(maze.getEnd()) == 0){
 		
-		for(int i = 0; i < 4; i++){
-		    
-		    if(maze.getNeighbors(next)[i] != null){
-			frontier.add(maze.getNeighbors(next)[i]);
-			maze.makePath(maze.getNeighbors(next)[i], '?');
+		    while(next.getPrev()!=null){
+			maze.makePath(next, '@');
+			next = next.getPrev();
 		    }
-		    
-		}
 		
-	    }
+		    maze.makePath(maze.getStart(),'S');
+		    maze.makePath(maze.getEnd(),'E');
+		
+		    return true;
+		}
 	    
+		if(hasNeighbors(next)){
+		
+		    for(int i = 0; i < 4; i++){
+		    
+			if(maze.getNeighbors(next)[i] != null){
+			    frontier.add(maze.getNeighbors(next)[i]);
+			    maze.makePath(maze.getNeighbors(next)[i], '?');
+			}
+		    
+		    }
+		
+		}
+	    
+	    }
+	    return false;
 	}
+	if (mode == 3) {
+	    frontier = new FrontierPriorityQueue();
+	    maze.setAstar(true);
+	}
+	
 	return false;
     }
 
@@ -114,5 +206,6 @@ public class MazeSolver{
 	//System.out.println(a.solve(0));
 	System.out.println(a.solve(1));
 	//System.out.println(a.solve(2));
+	//System.out.println(a.solve(3));
     }
 }

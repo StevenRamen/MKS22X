@@ -8,6 +8,8 @@ public class Maze{
     private static final String SHOW_CURSOR =  "\033[?25h";
     Location start,end;
     private char[][]maze;
+    private boolean isAstar;
+    private int distanceSoFar;
 
     
     public Maze (String mazeText) {
@@ -111,6 +113,9 @@ public class Maze{
 	return end;
     }
     
+    public void setAstar(boolean a) {
+	isAstar = a;
+    }
     
     private static String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
