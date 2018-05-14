@@ -32,10 +32,10 @@ public class MazeSolver{
 	    frontier = new FrontierStack();
 	}
 	// Priority Queue
-	/*if (mode == 2) {
-
+	if (mode == 2) {
+	    frontier = new FrontierPriorityQueue();
 	}
-	*/
+	
 
         Location current = maze.getStart();
 	frontier.add(current);
@@ -111,6 +111,8 @@ public class MazeSolver{
     public static void main(String[] args) {
 	MazeSolver a = new MazeSolver("data1.dat");
 
-	System.out.println(a.solve());
+	//System.out.println(a.solve(0));
+	//System.out.println(a.solve(1));
+	System.out.println(a.solve(2));
     }
 }
