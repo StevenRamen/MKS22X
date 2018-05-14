@@ -35,39 +35,50 @@ public class Merge {
     */
     
     public static void merge(int[] data, int[] temp, int lo, int mid, int hi) {
-	int index1 = lo;
-	int index2 = mid + 1;
-	int outputIndex = lo;
+	int left = 0;
+	int right = 0;
+	int inc = 0;
 	
-	while (index1 <= mid || index2 <= hi) {
-	    if (index1 > mid) {
-		data[outputIndex] = temp[index2];
-		index2 ++;
-	    } else if (index2 > hi) {
-		data[outputIndex] = temp[index1];
-		index1 ++;
-	    } else if (temp[index1] <= temp[index2]) {
-		data[outputIndex] = temp[index1];
-		index1 ++;
-	    } else {
-		data[outputIndex] = temp[index2];
-		index2 ++;
+	while (lo + left < mid + 1 && mid + 1 + right < hi + 1){
+	    
+	    if (temp[lo + left] < temp[mid + 1 + right]){
+		data[lo + inc] = temp[lo + left];
+		left ++;
+		
+	    }else{
+		
+		data[lo + inc] = temp[mid + 1 + right];
+		right ++;
 	    }
-	    outputIndex ++;
+	    
+	    inc ++;
 	}
 
+	while (mid + 1 + right < hi + 1){
+	    data[lo + inc] = temp[mid + 1 + right];
+	    right ++;
+	    inc ++;
+	}
+		
+	while (lo + left < mid + 1){
+	    
+	    data[lo + inc] = temp[lo + left];
+	    left ++;
+	    inc ++;
+
+	}
 	
     }
 
     public static void insertionSort(int[] data, int lo, int hi) {
-	for (int i = lo + 1; i < hi; i++) {
+	for (int i = lo + 1; i <= hi; i++) {
 	    int key = data[i];
-	    int x = i - 1;
-	    while (x >= 0 && data[x] > key) {
-		data[x + 1] = data[x];
+	    int x = i;
+	    while (x > lo && data[x - 1] > key) {
+		data[x] = data[x - 1];
 		x = x - 1;
 	    }
-	    data[x + 1] = key;
+	    data[x] = key;
 	}
     }
     
@@ -81,14 +92,14 @@ public class Merge {
 	if (lo >= hi) {
 	    return;
 	}
-	if (hi - lo <= 10) {
+	if (hi - lo <= 35) {
 	    insertionSort(data, lo, hi);
 	} else {
 	    for (int i = lo; i <= hi; i ++) {
 		temp[i] = data[i];
 	    }
 	    
-	    int mid = (lo + hi) / 2;
+	    int mid = lo / 2 + hi / 2;
 	    
 	    msort(temp, data, lo, mid);
 	    msort(temp, data, mid + 1, hi);
@@ -103,10 +114,10 @@ public class Merge {
 	//System.out.println(Arrays.toString(merge(data1, data2)));
 	int[] data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2};
 	int[] data1 = {1, 5, 7, 2, 76, 213, 876, 32, 2, 76, 54, 303, 4534, 2435, 5453};
-	int[] data2 = {89, 65, 54, 34, 32, 23, 12, 1};
+	int[] data2 = {100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80};
 	//Merge.insertionSort(data1, 0, data1.length - 1);
-	Merge.mergesort(data1);
-	System.out.println(Arrays.toString(data1));
+	Merge.mergesort(data2);
+	System.out.println(Arrays.toString(data2));
     }
     
 }
