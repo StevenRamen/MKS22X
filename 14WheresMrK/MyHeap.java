@@ -61,42 +61,47 @@ public class MyHeap <T extends Comparable<T>> {
 	return x;
     }
 
+    public T remove(int n) {
+	T x = data[0];
+	swap(0, size() - 1);
+	data[size() - 1] = null;
+	size --;
+	pushDown(0);
+	return x;
+    }
+
     public void pushDown(int n) {
-	int left = n;
-	int right = 2 * n + 1;
+	int left = 2 * n + 1;
+	int right = 2 * n + 2;
 	T leaf = data[n];
 	
 	if (max) {
-	    //System.out.println(data[left]);
-	    //System.out.println(data[n]);
-	    while (right < data.length && right + 1 < data.length && data[right] != null && leaf.compareTo(data[right]) < 0 || leaf.compareTo(data[right + 1]) < 0) {
-		if (/*left < data.length && */data[right + 1].compareTo(data[right]) > 0) {
-		    swap(right + 1, left);
-		    left = right + 1;
+	    if (left < size() && data[left] != null && right < size() && data[right] != null) {
+		if (data[left].compareTo(data[right]) > 0) {
+		    swap(n, left);
+		    pushDown(left);
 		} else {
-		    swap(left, right);
-		    left = right;
+		    swap(n, right);
+		    pushDown(right);
 		}
-		right = 2 * left + 1;
-	    }
 	    
-	    if (right + 1 < data.length && data[right] != null && data[right + 1] == null && leaf.compareTo(data[right]) < 0) {
-		swap(left, right);
+		if (data[n].compareTo(data[left]) < 0) {
+		    swap(n, left);
+		}
 	    }
 	} else {
-	    while (right < data.length && right + 1 < data.length && data[right] != null && leaf.compareTo(data[right]) > 0 || leaf.compareTo(data[right + 1]) > 0) {
-		if (/*left < data.length && */data[right + 1].compareTo(data[right]) < 0) {
-		    swap(right + 1, left);
-		    left = right + 1;
+	    if (left < size() && data[left] != null && right < size() && data[right] != null) {
+		if (data[left].compareTo(data[right]) < 0) {
+		    swap(n, left);
+		    pushDown(left);
 		} else {
-		    swap(left, right);
-		    left = right;
+		    swap(n, right);
+		    pushDown(right);
 		}
-		right = 2 + left + 1;
-	    }
 	    
-	    if (right + 1 < data.length && data[right] != null && data[right + 1] == null && leaf.compareTo(data[right]) > 0) {
-		swap(left, right);
+		if (data[n].compareTo(data[left]) > 0) {
+		    swap(n, left);
+		}
 	    }
 	}
 	
@@ -134,6 +139,15 @@ public class MyHeap <T extends Comparable<T>> {
 	}
 	return ans + ")";
     }
+
+    public void toHeap(T[] arry) {
+	for (int i = arry.length - 1; i >= 0; i --) {
+	    pushDown(i);
+	}
+	size = arry.length;
+	data = arry;
+    }
+    
     /*
     public static void main(String[] args) {
 	// max
