@@ -7,7 +7,7 @@ public class MazeSolver{
     
     public MazeSolver(String mazeText){
 	maze = new Maze(mazeText);
-	animate = true;
+	animate = false;
     }
     
     //Default to BFS
@@ -27,149 +27,63 @@ public class MazeSolver{
 
 	if (mode == 0) {
 	    frontier = new FrontierQueue();
-	    Location current = maze.getStart();
-	    frontier.add(current);
-	
-	    while(frontier.hasNext()){
-	    
-		if(animate){
-		    clearTerminal();
-		    System.out.println(this);
-		    wait(100);
-		}
-	    
-		Location next = frontier.next();
-		maze.makePath(next, '.');
-	    
-		if(next.compareTo(maze.getEnd()) == 0){
-		
-		    while(next.getPrev()!=null){
-			maze.makePath(next, '@');
-			next = next.getPrev();
-		    }
-		
-		    maze.makePath(maze.getStart(),'S');
-		    maze.makePath(maze.getEnd(),'E');
-		
-		    return true;
-		}
-	    
-		if(hasNeighbors(next)){
-		
-		    for(int i = 0; i < 4; i++){
-		    
-			if(maze.getNeighbors(next)[i] != null){
-			    frontier.add(maze.getNeighbors(next)[i]);
-			    maze.makePath(maze.getNeighbors(next)[i], '?');
-			}
-		    
-		    }
-		
-		}
-	    
-	    }
-	    return false;
 	}
-
-	
+       
 	if (mode == 1) {
 	    frontier = new FrontierStack();
-
-	    Location current = maze.getStart();
-	    frontier.add(current);
-	
-	    while(frontier.hasNext()){
-	    
-		if(animate){
-		    clearTerminal();
-		    System.out.println(this);
-		    wait(100);
-		}
-	    
-		Location next = frontier.next();
-		maze.makePath(next, '.');
-	    
-		if(next.compareTo(maze.getEnd()) == 0){
-		
-		    while(next.getPrev()!=null){
-			maze.makePath(next, '@');
-			next = next.getPrev();
-		    }
-		
-		    maze.makePath(maze.getStart(),'S');
-		    maze.makePath(maze.getEnd(),'E');
-		
-		    return true;
-		}
-	    
-		if(hasNeighbors(next)){
-		
-		    for(int i = 0; i < 4; i++){
-		    
-			if(maze.getNeighbors(next)[i] != null){
-			    frontier.add(maze.getNeighbors(next)[i]);
-			    maze.makePath(maze.getNeighbors(next)[i], '?');
-			}
-		    
-		    }
-		
-		}
-	    
-	    }
-	    return false;
 	}
+	
 	// Priority Queue
 	if (mode == 2) {
 	    frontier = new FrontierPriorityQueue();
-
-	    Location current = maze.getStart();
-	    frontier.add(current);
-	
-	    while(frontier.hasNext()){
-	    
-		if(animate){
-		    clearTerminal();
-		    System.out.println(this);
-		    wait(100);
-		}
-	    
-		Location next = frontier.next();
-		maze.makePath(next, '.');
-	    
-		if(next.compareTo(maze.getEnd()) == 0){
-		
-		    while(next.getPrev()!=null){
-			maze.makePath(next, '@');
-			next = next.getPrev();
-		    }
-		
-		    maze.makePath(maze.getStart(),'S');
-		    maze.makePath(maze.getEnd(),'E');
-		
-		    return true;
-		}
-	    
-		if(hasNeighbors(next)){
-		
-		    for(int i = 0; i < 4; i++){
-		    
-			if(maze.getNeighbors(next)[i] != null){
-			    frontier.add(maze.getNeighbors(next)[i]);
-			    maze.makePath(maze.getNeighbors(next)[i], '?');
-			}
-		    
-		    }
-		
-		}
-	    
-	    }
-	    return false;
 	}
+	
+	// Astar
 	if (mode == 3) {
 	    frontier = new FrontierPriorityQueue();
 	    maze.setAstar(true);
 	}
 	
+	Location current = maze.getStart();
+	frontier.add(current);
+	
+	while(frontier.hasNext()){
+	    
+	    if(animate){
+		clearTerminal();
+		System.out.println(this);
+		wait(50);
+	    }
+	    
+	    Location next = frontier.next();
+	    maze.makePath(next, '.');
+	    
+	    if(next.getX() == maze.getEnd().getX() && next.getY() == maze.getEnd().getY()){
+		
+		while(next.getPrev() != null){
+		    maze.makePath(next, '@');
+		    next = next.getPrev();
+		}
+		
+		maze.makePath(maze.getStart(), 'S');
+		maze.makePath(maze.getEnd(), 'E');
+		
+		return true;
+	    }
+	    
+	    if(hasNeighbors(next)){
+		
+		for(int i = 0; i < 4; i++){
+		    
+		    if(maze.getNeighbors(next)[i] != null){
+			frontier.add(maze.getNeighbors(next)[i]);
+			maze.makePath(maze.getNeighbors(next)[i], '?');
+		    }
+		    
+		}
+		
+	    }
+	}
 	return false;
     }
 
@@ -187,13 +101,12 @@ public class MazeSolver{
     
     private boolean hasNeighbors(Location loc) {
 	Location[] neighbors = maze.getNeighbors(loc);
-	int count = 0;
 	for (int i = 0; i < 4; i ++) {
 	    if (neighbors[i] != null) {
-	       count ++;
+	       return true;
 	    }
 	}
-	return count != 0;
+	return false;
     }
     
     public String toString(){
@@ -203,8 +116,8 @@ public class MazeSolver{
     public static void main(String[] args) {
 	MazeSolver a = new MazeSolver("data2.dat");
 
-	//System.out.println(a.solve(0));
-	System.out.println(a.solve(1));
+	System.out.println(a.solve(0));
+	//System.out.println(a.solve(1));
 	//System.out.println(a.solve(2));
 	//System.out.println(a.solve(3));
     }

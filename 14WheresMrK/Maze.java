@@ -1,6 +1,7 @@
 import java.io.*;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Arrays;
 
 public class Maze{
     private static final String CLEAR_SCREEN =  "\033[2J";
@@ -61,6 +62,9 @@ public class Maze{
 	    if (numE != 1) {
 		throw new IllegalStateException();
 	    }
+
+	    isAstar = false;
+	    distanceSoFar = 0;
 	    
 	    
 	} catch (FileNotFoundException e) {
@@ -77,28 +81,30 @@ public class Maze{
     */
     public Location[] getNeighbors(Location n){
 	Location[] neighbors = new Location[4];
+	distanceSoFar ++;
+
+	int row = n.getX();
+	int col = n.getY();
+
 	
-	if (n.getX() + 1 < maze.length && maze[n.getX() + 1][n.getY()] == ' ' || maze[n.getX() + 1][n.getY()] == 'E') {
-	    Location loc = new Location(n.getX() + 1, n.getY(), n);
-	    
-	    neighbors[0] = new Location(n.getX() + 1, n.getY(), n, distance(loc));
+	if (row + 1 < maze.length && (maze[row + 1][col] == ' ' || maze[row + 1][col] == 'E')) {
+	    Location loc = new Location(row + 1, col, n);
+	    neighbors[0] = new Location(row + 1, col, n, distance(loc));
 	}
-	if (n.getX() - 1 >= 0 && maze[n.getX() - 1][n.getY()] == ' ' || maze[n.getX() - 1][n.getY()] == 'E') {
-	    Location loc = new Location(n.getX() - 1, n.getY(), n);
-	    
-	    neighbors[1] = new Location(n.getX() - 1, n.getY(), n, distance(loc));
+	if (row - 1 >= 0 && (maze[row - 1][col] == ' ' || maze[row - 1][col] == 'E')) {
+	    Location loc = new Location(row - 1, col, n);
+	    neighbors[1] = new Location(row - 1, col, n, distance(loc));
 	}
-	if (n.getY() + 1 < maze.length && maze[n.getX()][n.getY() + 1] == ' ' || maze[n.getX()][n.getY() + 1] == 'E') {
-	    Location loc = new Location(n.getX(), n.getY() + 1, n);
-	    
-	    neighbors[2] = new Location(n.getX(), n.getY() + 1, n, distance(loc));
+	if (col + 1 < maze[row].length && (maze[row][col + 1] == ' ' || maze[row][col + 1] == 'E')) {
+	    Location loc = new Location(row, col + 1, n);
+	    neighbors[2] = new Location(row, col + 1, n, distance(loc));
 	}
-	if (n.getY() - 1 >= 0 && maze[n.getX()][n.getY() - 1] == ' ' || maze[n.getX()][n.getY() - 1] == 'E') {
-	    Location loc = new Location(n.getX(), n.getY() - 1, n);
-	    
-	    neighbors[3] = new Location(n.getX(), n.getY() - 1, n, distance(loc));
+	if (col - 1 >= 0 && (maze[row][col - 1] == ' ' || maze[row][col - 1] == 'E')) {
+	    Location loc = new Location(row, col - 1, n);
+	    neighbors[3] = new Location(row, col - 1, n, distance(loc));
 	}
-	
+	//System.out.println(Arrays.toString(neighbors));
+
 	return neighbors;
     }
 
@@ -186,7 +192,11 @@ public class Maze{
     }
     */
     public int distance(Location loc) {
-	return Math.abs(loc.getX() - getEnd().getX()) + Math.abs(loc.getY() - getEnd().getY());
+	if (isAstar) {
+	    return Math.abs(loc.getX() - getEnd().getX()) + Math.abs(loc.getY() - getEnd().getY()) + distanceSoFar;
+	} else {
+	    return Math.abs(loc.getX() - getEnd().getX()) + Math.abs(loc.getY() - getEnd().getY());
+	}
     }
 
     public String toStringColor(){
