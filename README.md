@@ -5,3 +5,4 @@ Labs to fix:
 01Recursion
 03Knight
 05USACO
+09StackCalculator
