@@ -86,7 +86,6 @@ public class RunningMedian {
 	System.out.println(test.getMedian());
 	
 	System.out.println(test.size());
-
     }
     
 }
