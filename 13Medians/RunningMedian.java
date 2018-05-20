@@ -43,8 +43,8 @@ public class RunningMedian {
 	    min.add(temp);
 	}
 	size ++;
-	System.out.println(min.toString());
-	System.out.println(max.toString());
+	//System.out.println(min.toString());
+	//System.out.println(max.toString());
     }
     
     public Double getMedian() {
@@ -86,7 +86,6 @@ public class RunningMedian {
 	System.out.println(test.getMedian());
 	
 	System.out.println(test.size());
-
     }
     
 }
