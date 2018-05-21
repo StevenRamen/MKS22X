@@ -20,6 +20,7 @@ public class RunningMedian {
 	min = new MyHeap<Double>(false);
 	max = new MyHeap<Double>(true);
 	size = 0;
+	median = 0;
     }
 
     public void add(Double num) {
@@ -86,6 +87,7 @@ public class RunningMedian {
 	System.out.println(test.getMedian());
 	
 	System.out.println(test.size());
+
     }
     
 }
