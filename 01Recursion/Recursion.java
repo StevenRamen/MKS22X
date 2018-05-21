@@ -14,15 +14,12 @@ public class Recursion {
 	if (n < 0) {
 	    throw new IllegalArgumentException("input can't be negative");
 	}
-	if (n == 0) {
-	    return n;
-	}
 	return fibhelp(n, 0, 1);
     }
 
     public int fibhelp(int n, int a, int b) {
         if (n == 0) {
-	    return b;
+	    return a;
 	}
 	return fibhelp(n - 1, b, a + b);
     }
@@ -31,7 +28,7 @@ public class Recursion {
 	if (n < 0) {
 	    throw new IllegalArgumentException("input can't be negative");
 	}
-	if (n == 0 || n == 1) {
+	if (n == 0) {
 	    return n;
 	}
 	return sqrthelp(n, n / 2);
@@ -39,8 +36,9 @@ public class Recursion {
 
     public double sqrthelp(double n, double guess) {
         double newGuess = (n / guess + guess) / 2;
+	double tolerance = .000000001;
 	
-	if (n / guess >= guess - .00000000001 && n / guess <= guess + .00000000001) {
+	if (Math.abs((guess * guess) - n) / n < tolerance && !(guess * guess < n)) {
 	    return guess;
 	}
 	return sqrthelp(n, newGuess);
@@ -54,7 +52,10 @@ public class Recursion {
     }
 
     public boolean isPossibleSumhelp(int n, int target, int sum) {
-	if (n == 0) {
+	if (target == sum) {
+	    return true;
+	}
+	if (n < 0) {
 	    return target == sum;
 	}
 	return isPossibleSumhelp(n - 1, target, sum) || isPossibleSumhelp(n - 1, target, sum + n);
