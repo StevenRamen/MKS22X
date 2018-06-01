@@ -52,7 +52,7 @@ public class MazeSolver{
 	    if(animate){
 		clearTerminal();
 		System.out.println(this);
-		wait(50);
+		wait(200);
 	    }
 	    
 	    Location next = frontier.next();
@@ -114,11 +114,11 @@ public class MazeSolver{
     }
 
     public static void main(String[] args) {
-	MazeSolver a = new MazeSolver("data2.dat");
+	MazeSolver a = new MazeSolver("data5.dat");
 
-	System.out.println(a.solve(0));
+	//System.out.println(a.solve(0));
 	//System.out.println(a.solve(1));
 	//System.out.println(a.solve(2));
-	//System.out.println(a.solve(3));
+	System.out.println(a.solve(3));
     }
 }
