@@ -62,7 +62,7 @@ public class RunningMedian {
 	    median = max.peek();
 	}
 	if (min.size() == max.size()) {
-	    median = (max.peek() + min.peek()) / 2;
+	    median = (max.peek() + min.peek()) ;
 	}
 	return median;
     }
@@ -74,7 +74,7 @@ public class RunningMedian {
     public static void main(String[] args){
 	RunningMedian test = new RunningMedian();
 	//System.out.println(test.getMedian());
-	test.add(2.0);
+	/*test.add(2.0);
 	System.out.println(test.getMedian());
 	
 	test.add(4.0);
@@ -87,7 +87,13 @@ public class RunningMedian {
 	System.out.println(test.getMedian());
 	
 	System.out.println(test.size());
-
+	*/
+	
+	for (int i = 0; i < 100; i ++) {
+	    test.add((double)i);
+	}
+	System.out.println(test.getMedian());
+	
     }
     
 }
