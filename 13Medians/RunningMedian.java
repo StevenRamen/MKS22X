@@ -20,7 +20,7 @@ public class RunningMedian {
 	min = new MyHeap<Double>(false);
 	max = new MyHeap<Double>(true);
 	size = 0;
-	median = 0;
+	median = 0.0;
     }
 
     public void add(Double num) {
